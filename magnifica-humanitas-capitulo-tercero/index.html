@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Magnifica Humanitas · Capítulo tercero</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20d%3D%22M9.5%206.5l15.5%209.5-15.5%209.5z%22%20fill%3D%22%23f0a400%22%20stroke%3D%22%230f2350%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22%20paint-order%3D%22stroke%22/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<script>document.documentElement.className = 'js';</script>
+<style>html,body{margin:0;background:#f4f6fb}@media (prefers-color-scheme:dark){html.js,html.js body{background:#10151f}}
+.pl,.pl-scope{
+  --pl-bg:#f4f6fb; --pl-paper:#ffffff; --pl-ink:#1b2230; --pl-muted:#5f6a7d; --pl-line:#dbe2ee;
+  --pl-accent:#2f62d0; --pl-on:#ffffff; --pl-soft:#e3ebfb; --pl-accent-ink:#1f4aa8;
+  --pl-warm:#e8913a; --pl-warm-soft:#fdf0e1; --pl-warm-ink:#8a4a0c;
+  --pl-yc:#f2c21b; --pl-yc-soft:#fef8d2; --pl-yc-ink:#5e4a00;
+  --pl-cf:#2bb3a3; --pl-cf-soft:#e0f4f1; --pl-cf-ink:#125e55;
+  --pl-mh:#a3324f; --pl-mh-soft:#fbeef1; --pl-mh-ink:#7a1f39;
+  --pl-es:#3d4451; --pl-es-soft:#eff1f4; --pl-es-ink:#2b303a;
+  --pl-font:"Atkinson Hyperlegible","Segoe UI",Verdana,system-ui,sans-serif;
+}
+.pl.dark,.noche .pl-scope{
+  --pl-bg:#10151f; --pl-paper:#171f2e; --pl-ink:#e6ebf5; --pl-muted:#9ba8be; --pl-line:#2b374d;
+  --pl-accent:#6b95f0; --pl-on:#0d1422; --pl-soft:#1e2b46; --pl-accent-ink:#a3bef8;
+  --pl-warm:#f0a65c; --pl-warm-soft:#33261a; --pl-warm-ink:#f5c08a;
+  --pl-yc:#fcd13b; --pl-yc-soft:#2f2a14; --pl-yc-ink:#fcd96a;
+  --pl-cf:#3cc8b7; --pl-cf-soft:#14302d; --pl-cf-ink:#7fe0d3;
+  --pl-mh:#e0708c; --pl-mh-soft:#2e1a20; --pl-mh-ink:#f1a3b6;
+  --pl-es:#8e98aa; --pl-es-soft:#1d222b; --pl-es-ink:#c5ccd8;
+}
+/* globito de ayuda al pasar el mouse (reemplaza al del navegador) */
+#fq-tip{position:fixed;inset:auto;left:0;top:0;margin:0;z-index:2147483647;max-width:min(300px,calc(100vw - 16px));padding:6px 10px;border-radius:9px;
+  background:#1d2433;color:#f2f5fb;border:1px solid rgba(255,255,255,.14);box-shadow:0 6px 22px rgba(10,15,30,.28);
+  font:600 12.5px/1.4 system-ui,"Segoe UI",sans-serif;letter-spacing:.01em;white-space:pre-line;pointer-events:none;opacity:0;transform:translateY(-3px);transition:opacity .12s,transform .12s;overflow:visible}
+#fq-tip.on{opacity:1;transform:none}
+/* cuadro para confirmar dentro del presentador (en vez del del navegador) */
+.pl-cf{position:absolute;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(10,14,24,.45)}
+.pl-cf .box{max-width:420px;width:100%;background:var(--pl-paper);color:var(--pl-ink);border:1px solid var(--pl-line);border-radius:16px;padding:18px 18px 14px;box-shadow:0 16px 48px rgba(0,0,0,.3)}
+.pl-cf p{margin:0 0 14px;font-size:17px;line-height:1.45;font-weight:600}
+.pl-cf .acts{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.pl{position:fixed;inset:0;z-index:1000;display:flex;flex-direction:column;background:var(--pl-bg);color:var(--pl-ink);font-family:var(--pl-font);font-size:var(--pl-size,21px);line-height:1.55}
+.pl *{box-sizing:border-box}
+.pl button{font-family:inherit}
+.pl-top{display:flex;align-items:center;gap:6px;padding:8px 12px;border-bottom:1px solid var(--pl-line);background:var(--pl-paper);font-size:15px;flex:none}
+/* sin actividad unos segundos: las barras se esconden (y el cursor) para dejar solo el contenido */
+.pl-top,.pl-nav{transition:opacity .45s,transform .45s}
+.pl.idle .pl-top{opacity:0;transform:translateY(-100%);pointer-events:none}
+.pl.idle .pl-nav{opacity:0;transform:translateY(100%);pointer-events:none}
+.pl.idle,.pl.idle *{cursor:none!important}
+.pl-top .ttl{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700;color:var(--pl-muted)}
+.pl-ib{border:0;background:none;color:var(--pl-muted);font-size:15px;padding:6px 9px;border-radius:9px;cursor:pointer;line-height:1;white-space:nowrap}
+.pl-ib:hover{background:var(--pl-soft);color:var(--pl-ink)}
+.pl-ib:disabled{opacity:.35;cursor:default;background:none}
+.pl-ib.on{background:var(--pl-warm-soft);color:var(--pl-warm-ink)}
+/* aviso suave: este paso tiene una nota y las notas están ocultas */
+.pl-ib.has{position:relative;color:var(--pl-warm-ink);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--pl-warm) 55%,transparent);animation:pl-nudge 2.4s ease-in-out 2}
+.pl-ib.has::after{content:"";position:absolute;top:3px;right:3px;width:7px;height:7px;border-radius:50%;background:var(--pl-warm)}
+@keyframes pl-nudge{0%,100%{background:transparent}50%{background:var(--pl-warm-soft)}}
+.pl-main{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column}
+.pl-step{max-width:44em;width:100%;margin:0 auto;padding:1.6em 1.3em 2.4em}
+/* pasos de pregunta: centrados en la pantalla (si no entran, se scrollea normal) */
+.pl-step.pl-center,.pl-step.pl-vcenter{margin:auto}   /* pl-vcenter: solo en vertical (los textos mantienen su alineación) */
+.pl-center > h2,.pl-center > .pl-txt{text-align:center}
+.pl-step > h2{font-size:1.45em;line-height:1.25;margin:0 0 .7em}
+.pl-kind{display:inline-block;font-size:.62em;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--pl-muted);margin-bottom:.5em}
+.pl-txt{white-space:pre-wrap;margin:0 0 1em;overflow-wrap:break-word}
+.pl-q.ic-none::before{display:none}
+.pl-q.ic-none{padding-top:1.3em}
+.pl-q.ic-warm{border-color:color-mix(in srgb,var(--pl-warm) 45%,var(--pl-line));box-shadow:0 14px 34px -18px color-mix(in srgb,var(--pl-warm) 60%,transparent)}
+.pl-q.ic-warm::before{background:var(--pl-warm);color:#fff}
+.pl-q.ic-red{border-color:color-mix(in srgb,#d6402b 45%,var(--pl-line));box-shadow:0 14px 34px -18px color-mix(in srgb,#d6402b 55%,transparent)}
+.pl-q.ic-red::before{background:#d6402b;color:#fff}
+.pl-q.ic-green{border-color:color-mix(in srgb,#3f8f4f 45%,var(--pl-line));box-shadow:0 14px 34px -18px color-mix(in srgb,#3f8f4f 55%,transparent)}
+.pl-q.ic-green::before{background:#3f8f4f;color:#fff}
+.pl-q.ic-purple{border-color:color-mix(in srgb,#7b52c7 45%,var(--pl-line));box-shadow:0 14px 34px -18px color-mix(in srgb,#7b52c7 55%,transparent)}
+.pl-q.ic-purple::before{background:#7b52c7;color:#fff}
+.pl-q{position:relative;background:var(--pl-paper);border:2px solid color-mix(in srgb,var(--pl-accent) 30%,var(--pl-line));border-radius:24px;padding:1.6em 1.4em 1.3em;margin:1.4em 0 1.3em;font-size:1.35em;line-height:1.38;text-align:center;white-space:pre-wrap;overflow-wrap:break-word;box-shadow:0 14px 34px -18px color-mix(in srgb,var(--pl-accent) 55%,transparent)}
+.pl-q::before{content:attr(data-ic);position:absolute;top:0;left:50%;transform:translate(-50%,-50%);width:1.55em;height:1.55em;border-radius:50%;background:var(--pl-accent);color:var(--pl-on);display:grid;place-items:center;font-size:.85em;font-weight:700;line-height:1;box-shadow:0 0 0 6px var(--pl-bg)}
+.pl-prop{background:var(--pl-warm-soft);border:1px solid color-mix(in srgb,var(--pl-warm) 45%,transparent);border-radius:14px;padding:1em 1.1em;margin:0 0 1em}
+.pl-prop .pl-txt{margin-bottom:.6em;font-weight:700}
+.pl-prop textarea{width:100%;min-height:6em;border:1px solid color-mix(in srgb,var(--pl-warm) 50%,transparent);border-radius:10px;padding:.6em .7em;font:inherit;font-size:.92em;background:var(--pl-paper);color:var(--pl-ink);resize:vertical}
+.pl-prop .saved{font-size:.65em;color:var(--pl-warm-ink);margin-top:.3em;min-height:1.2em}
+.pl-media{margin:0 0 1em}
+.pl-media img{display:block;max-width:100%;max-height:72vh;margin:0 auto;border-radius:12px;cursor:zoom-in}
+.pl-media video{display:block;width:100%;max-height:72vh;border-radius:12px;background:#000}
+.pl-media audio{width:100%}
+.pl-frame{position:relative;width:100%;padding-top:56.25%;border-radius:12px;overflow:hidden;background:#000}
+.pl-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.pl-pdf{width:100%;height:75vh;border:1px solid var(--pl-line);border-radius:12px;background:#fff}
+.pl-open{display:inline-flex;align-items:center;gap:.4em;margin-top:.5em;font-size:.8em;font-weight:700;color:var(--pl-accent-ink);background:var(--pl-soft);border-radius:10px;padding:.45em .9em;text-decoration:none;border:0;cursor:pointer}
+.pl-link{display:flex;align-items:center;gap:.6em;background:var(--pl-paper);border:1px solid var(--pl-line);border-radius:14px;padding:.8em 1em;text-decoration:none;color:var(--pl-ink);margin:0 0 1em;word-break:break-all}
+.pl-link:hover{border-color:var(--pl-accent)}
+.pl-link b{color:var(--pl-accent-ink)}
+.pl-note{border:2px dashed color-mix(in srgb,var(--pl-warm) 60%,transparent);background:var(--pl-warm-soft);color:var(--pl-warm-ink);border-radius:12px;padding:.6em .9em;margin:1.4em 0 0;font-size:.78em;white-space:pre-wrap}
+.pl-note b{display:block;font-size:.85em;letter-spacing:.05em;text-transform:uppercase}
+.pl-missing{color:var(--pl-muted);font-style:italic;border:1px dashed var(--pl-line);border-radius:12px;padding:1em;margin:0 0 1em}
+.pl-nav{position:relative;display:flex;align-items:center;gap:10px;padding:10px 14px;border-top:1px solid var(--pl-line);background:var(--pl-paper);flex:none}
+/* nota sin leer: puntito en «Siguiente» y aviso si se intenta pasar sin verla */
+.pl-btn.notedot{position:relative}
+.pl-btn.notedot::after{content:"";position:absolute;top:-4px;right:-4px;width:11px;height:11px;border-radius:50%;background:var(--pl-warm);box-shadow:0 0 0 2px var(--pl-paper)}
+.pl-warn{position:absolute;right:12px;bottom:calc(100% + 10px);z-index:5;max-width:min(420px,calc(100vw - 24px));background:var(--pl-paper);color:var(--pl-ink);border:1.5px solid color-mix(in srgb,var(--pl-warm) 60%,transparent);border-radius:14px;padding:.75em .9em;font-size:15px;line-height:1.4;box-shadow:0 10px 30px rgba(0,0,0,.18);animation:pl-pop .18s ease-out}
+.pl-warn::after{content:"";position:absolute;right:34px;bottom:-8px;width:14px;height:14px;background:var(--pl-paper);border-right:1.5px solid color-mix(in srgb,var(--pl-warm) 60%,transparent);border-bottom:1.5px solid color-mix(in srgb,var(--pl-warm) 60%,transparent);transform:rotate(45deg)}
+.pl-warn b{color:var(--pl-warm-ink)}
+.pl-warn .acts{display:flex;gap:8px;justify-content:flex-end;margin-top:.6em;flex-wrap:wrap}
+.pl-warn .pl-btn{font-size:14px;padding:.4em .9em}
+@keyframes pl-pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.pl-btn{border:1px solid var(--pl-line);background:var(--pl-paper);color:var(--pl-ink);border-radius:12px;padding:.55em 1.1em;font-size:16px;font-weight:700;cursor:pointer;white-space:nowrap}
+.pl-btn:hover{border-color:var(--pl-accent)}
+.pl-btn.pri{background:var(--pl-accent);border-color:var(--pl-accent);color:var(--pl-on)}
+.pl-btn:disabled{opacity:.35;cursor:default}
+.pl-prog{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.pl-bar{width:100%;max-width:420px;height:6px;border-radius:99px;background:var(--pl-line);overflow:hidden}
+.pl-bar > div{height:100%;background:var(--pl-accent);transition:width .3s}
+.pl-count{font-size:13px;color:var(--pl-muted)}
+.pl-cover{max-width:38em;width:100%;margin:0 auto;padding:12vh 1.4em 2em;text-align:center}
+.pl-cover .eyebrow{font-size:.62em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--pl-accent-ink)}
+.pl-cover h1{font-size:2.1em;line-height:1.15;margin:.3em 0 .25em}
+.pl-cover .csub{font-size:1.05em;color:var(--pl-muted);margin:0 0 .3em}
+.pl-cover .cgoal{text-align:left;background:var(--pl-paper);border:1px solid var(--pl-line);border-radius:14px;padding:.9em 1.1em;margin:1.4em 0;white-space:pre-wrap;font-size:.92em}
+.pl-cover .cmeta{font-size:.7em;color:var(--pl-muted);margin-bottom:1.4em}
+.pl-cover .pl-btn{font-size:19px;padding:.6em 1.6em;margin:.25em}
+.pl-closing{text-align:center;padding-top:10vh}
+.pl-closing .ct{font-size:1.9em;font-weight:700;line-height:1.2;margin:0 0 .3em}
+.pl-closing .cs{font-size:1.15em;color:var(--pl-muted);margin:0 0 1.4em;white-space:pre-wrap}
+.pl-recap{text-align:left;max-width:34em;margin:1.2em auto}
+.pl-recap h3{font-size:.85em;color:var(--pl-warm-ink);margin:0 0 .5em}
+.pl-recap .rc{background:var(--pl-warm-soft);border-left:5px solid var(--pl-warm);border-radius:0 12px 12px 0;padding:.7em 1em;margin:0 0 .6em;white-space:pre-wrap}
+.pl-recap .rc small{display:block;color:var(--pl-muted);font-size:.7em;margin-bottom:.2em}
+.pl-light{position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.92);display:grid;place-items:center;cursor:zoom-out}
+.pl-light img{max-width:98vw;max-height:98vh}
+/* textos de los libros */
+.bk{border-radius:16px;padding:1em 1.15em;margin:0 0 1em;border:1px solid var(--pl-line);background:var(--pl-paper);font-family:var(--pl-font,inherit);color:var(--pl-ink)}
+.bk-yc{border-color:color-mix(in srgb,var(--pl-yc) 60%,transparent);background:var(--pl-yc-soft)}
+.bk-cf{border-color:color-mix(in srgb,var(--pl-cf) 55%,transparent);background:var(--pl-cf-soft)}
+.bk-tag{display:inline-block;font-size:.62em;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:6px;padding:.25em .6em;margin-bottom:.5em}
+.bk-yc .bk-tag{background:var(--pl-yc);color:#1d1d1b}
+.bk-cf .bk-tag{background:var(--pl-cf);color:#fff}
+.bk-mh{border-color:color-mix(in srgb,var(--pl-mh) 45%,transparent);background:var(--pl-mh-soft)}
+.bk-mh .bk-tag{background:var(--pl-mh);color:#fff}
+.bk-mh .bk-kick{color:var(--pl-mh-ink)}
+.bk-es{border-color:color-mix(in srgb,var(--pl-es) 40%,transparent);background:var(--pl-es-soft)}
+.bk-es .bk-tag{background:var(--pl-es);color:#fff}
+.bk-es .bk-kick{color:var(--pl-es-ink)}
+.bk-es .bk-c h4{color:var(--pl-es-ink)}
+.bk-q.bk-big{font-size:1.9em;text-align:center;margin:.5em 0 .4em;line-height:1.2}
+.bk-c ul ul{margin:.2em 0 .3em}
+.bk-c .rows .row.full,.bk-c .rows.lab .row.full{grid-template-columns:1fr}
+.bk-es .bk-c > ul{margin-bottom:.35em}
+.bk-lib{border-color:color-mix(in srgb,var(--bc) 45%,transparent);background:color-mix(in srgb,var(--bc) 7%,var(--pl-paper))}
+.bk-lib .bk-tag{background:var(--bc);color:#fff}
+.bk-lib .bk-kick,.bk-lib .bk-c h4{color:color-mix(in srgb,var(--bc) 70%,var(--pl-ink))}
+.bk-lib .bk-c blockquote{border-left-color:var(--bc)}
+.bk-c blockquote .src{display:block;font-size:.8em;color:var(--pl-muted);margin-top:.35em}
+.bk-ref{font-size:.72em;color:var(--pl-muted);margin-top:.6em}
+.bk-vs{font-size:.62em;font-weight:700;color:var(--bc,var(--pl-muted));vertical-align:super;line-height:0;margin-right:.12em}
+.bk-fn{font-size:.62em;font-weight:700;color:var(--pl-muted);vertical-align:super;line-height:0;margin-left:.1em}
+.bk-gap{color:var(--pl-muted);white-space:nowrap}
+.bk-notes{border-top:1px solid var(--pl-line);margin-top:.6em;padding-top:.5em;font-size:.72em;color:var(--pl-muted);line-height:1.45}
+.bk-notes .h{font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.85em;margin-bottom:.3em}
+.bk-notes p{margin:0 0 .3em}
+.bk-kick{font-size:.75em;color:var(--pl-muted);font-weight:700;margin:-.2em 0 .3em}
+.bk-q{font-size:1.15em;font-weight:700;line-height:1.3;margin:0 0 .55em}
+.bk-a{font-weight:700;margin:0 0 .8em}
+.bk-c p,.bk-c > *{margin:0 0 .75em}
+.bk-c{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
+.bk-c h4{font-size:1em;color:var(--pl-cf-ink);margin:1em 0 .4em;text-align:left}
+.bk-c blockquote{margin:0 0 .8em;padding:.5em .9em;background:var(--pl-paper);border-left:4px solid var(--pl-cf);border-radius:0 10px 10px 0}
+.bk-c ul,.bk-c ol{padding-left:1.3em}
+.bk-c .box{background:var(--pl-paper);border:1px solid var(--pl-line);border-radius:10px;padding:.5em .8em;margin:0 0 .8em}
+.bk-c .rows{border-left:3px solid var(--pl-line);padding-left:.8em;margin:0 0 .8em}
+.bk-c .row{display:grid;grid-template-columns:1fr 1fr;gap:.1em 1em;padding:.25em 0;border-bottom:1px dotted var(--pl-line)}
+.bk-c .rows.lab .row{grid-template-columns:9em 1fr}
+.bk-x{border-bottom:1.5px solid currentColor}
+.bk-r{display:inline-block;font-size:.72em;font-weight:700;border-radius:99px;padding:0 .45em;background:var(--pl-yc);color:#1d1d1b;vertical-align:.08em}
+.bk-r::before{content:"→ "}
+.bk-ms{display:grid;grid-template-columns:repeat(auto-fill,minmax(15em,1fr));gap:.6em;margin-top:.9em}
+.bk-mg{background:var(--pl-paper);border:1px solid var(--pl-line);border-radius:12px;padding:.6em .8em;font-size:.82em;line-height:1.5}
+.bk-mg .h{font-size:.78em;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--pl-muted);margin-bottom:.2em}
+.bk-mg .s{font-size:.85em;color:var(--pl-muted);margin-top:.35em}
+.bk-show{display:block;margin:.2em 0 .8em;border:2px dashed currentColor;background:transparent;color:var(--pl-ink);border-radius:12px;padding:.6em 1em;font:inherit;font-weight:700;cursor:pointer;width:100%}
+.bk-hide{display:none}
+@media (max-width:640px){
+  .pl{font-size:var(--pl-size-m,18px)}
+  .pl-step{padding:1.1em 1em 2em}
+  .pl-nav{padding:8px 10px;gap:6px}
+  .pl-btn{padding:.55em .8em;font-size:15px}
+  .pl-top .ttl{display:none}
+  .pl-top{justify-content:flex-end}
+  .bk-c{text-align:left}
+  .bk-c .row,.bk-c .rows.lab .row{grid-template-columns:1fr}
+}
+@media print{
+  .pl-print{font-size:12pt}
+}
+/* paso «Pregunta»: caja para escribir y opciones para marcar */
+.pl-ans{margin:0 0 1em;text-align:left}
+.pl-ans textarea{display:block;width:100%;min-height:5.5em;border:1.5px solid color-mix(in srgb,var(--pl-accent) 35%,var(--pl-line));border-radius:12px;padding:.6em .75em;font:inherit;font-size:.9em;background:var(--pl-paper);color:var(--pl-ink);resize:vertical}
+.pl-ans .saved{font-size:.62em;color:var(--pl-muted);margin-top:.3em;min-height:1.2em}
+.pl-ans.priv textarea{border-style:dashed;border-color:color-mix(in srgb,#7b52c7 55%,var(--pl-line))}
+.pl-priv{font-size:.62em;color:var(--pl-muted);margin-top:.35em;line-height:1.4}
+.pl-opts{display:flex;flex-wrap:wrap;gap:.45em;justify-content:center;margin:0 0 1em}
+.pl-opt{border:1.5px solid var(--pl-line);background:var(--pl-paper);color:var(--pl-ink);border-radius:99px;padding:.4em .95em;font:inherit;font-size:.8em;line-height:1.3;cursor:pointer}
+.pl-opt.on{background:var(--pl-accent);border-color:var(--pl-accent);color:var(--pl-on)}
+.pl-opt.on::before{content:"✓ "}
+.pl-unica{text-align:center;font-size:.62em;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--pl-muted);margin:-.4em 0 .5em}
+.pl-cond{display:inline-block;font-size:.62em;font-weight:700;color:var(--pl-accent-ink);background:var(--pl-soft);border-radius:8px;padding:.2em .6em;margin:0 0 .5em}
+.pl-cover .cpriv,.pl-hoja .cpriv{font-size:.62em;color:var(--pl-muted);max-width:32em;margin:1.8em auto 0;line-height:1.5;text-align:center}
+.pl-cover .pl-btn.lite{font-size:15px;padding:.5em 1.1em;margin-top:.8em}
+/* hoja de preguntas */
+.pl-hoja .eyebrow{font-size:.62em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--pl-accent-ink);text-align:center}
+.pl-hoja h1{font-size:1.6em;line-height:1.2;margin:.2em 0 .3em;text-align:center}
+.pl-hoja .hsub{text-align:center;color:var(--pl-muted);font-size:.8em;margin:0 0 .6em}
+.pl-hoja .pl-hacts{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:.8em 0 1.2em}
+.pl-hoja .hq{border-top:1px solid var(--pl-line);padding:1em 0 .2em}
+.pl-hoja .hq h2{font-size:1em;margin:0 0 .3em}
+.pl-hoja .pl-q{font-size:1.05em;text-align:left;margin:.3em 0 .8em;padding:.8em 1em;border-radius:14px;box-shadow:none}
+.pl-hoja .pl-q::before{display:none}
+.pl-hoja .pl-opts{justify-content:flex-start}
+@media print{
+  html,body{background:#fff!important;overflow:visible!important;height:auto!important}
+  body > :not(.pl){display:none!important}
+  .pl,.pl.dark{--pl-bg:#fff;--pl-paper:#fff;--pl-ink:#000;--pl-muted:#444;--pl-line:#bbb;--pl-soft:#eee;--pl-accent:#333;--pl-on:#fff;--pl-accent-ink:#000}
+  .pl{position:static;display:block;font-size:12pt}
+  .pl-top,.pl-nav,.pl-noprint{display:none!important}
+  .pl-main{overflow:visible;display:block}
+  .pl-hoja{padding:0}
+  .pl-hoja .hq{break-inside:avoid}
+  .pl-hoja textarea{border:1px solid #999;resize:none;overflow:hidden}
+  .pl-hoja .saved,.pl-hoja .pl-priv{display:none}
+}
+
+.js #nojs{display:none}
+#nojs .nj-hint{font-size:.72em;color:var(--pl-muted);margin:.3em 0 1em}
+#nojs .nj-pip{display:flex;gap:.6em;align-items:flex-start;background:var(--pl-soft);color:var(--pl-ink);border:1.5px solid color-mix(in srgb,var(--pl-accent) 35%,transparent);border-radius:14px;padding:.7em .85em;margin:.2em 0 1em;font-size:.8em;line-height:1.45}
+#nojs .nj-pip .ic{flex:none;width:38px;height:38px;border-radius:10px;background:var(--pl-paper);color:var(--pl-accent-ink);display:grid;place-items:center;border:1px solid var(--pl-line)}
+#nojs .nj-yt{position:relative;display:block;border-radius:12px;overflow:hidden;margin:0 0 .5em;background:#000}
+#nojs .nj-yt img{display:block;width:100%}
+#nojs .nj-yt span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:68px;height:48px;border-radius:14px;background:#e62117;color:#fff;display:grid;place-items:center;font-size:24px}
+#nojs .nj-pdf figure{margin:0 0 1em}
+#nojs .nj-pdf img{display:block;width:100%;border:1px solid var(--pl-line);border-radius:8px;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+#nojs .nj-pdf figcaption{font-size:.65em;color:var(--pl-muted);text-align:center;margin-top:.3em}
+#nojs{font-family:var(--pl-font);color:var(--pl-ink);font-size:19px;line-height:1.55}
+#nojs .nj-cover{max-width:36em;margin:0 auto;min-height:100vh;box-sizing:border-box;padding:14vh 1.2em 2em;text-align:center}
+#nojs .nj-eyebrow{font-size:.7em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--pl-accent-ink)}
+#nojs h1{font-size:1.9em;line-height:1.15;margin:.3em 0}
+#nojs .nj-sub{color:var(--pl-muted);margin:.2em 0}
+#nojs .nj-intro{text-align:left;background:var(--pl-paper);border:1px solid var(--pl-line);border-radius:14px;padding:.8em 1em;margin:1.2em 0;white-space:pre-wrap}
+#nojs .nj-meta{font-size:.75em;color:var(--pl-muted);margin:1.2em 0}
+#nojs .nj-btn{display:inline-block;text-decoration:none;border:1px solid var(--pl-line);background:var(--pl-paper);color:var(--pl-ink);border-radius:12px;padding:.5em 1em;font-weight:700;font-size:16px}
+#nojs .nj-btn.pri{background:var(--pl-accent);border-color:var(--pl-accent);color:#fff}
+#nojs .nj-btn.big{font-size:19px;padding:.65em 1.8em}
+#nojs .nj-link{display:inline-block;margin-top:1em;font-size:.8em;color:var(--pl-muted)}
+/* paso a paso sin JavaScript: se ve solo el paso al que apunta el enlace (#p1, #p2…) */
+#nojs .nj-step{display:none;min-height:100vh;box-sizing:border-box;flex-direction:column}
+#nojs .nj-step:target{display:flex}
+#nojs:has(.nj-step:target) .nj-cover,#nojs:has(#todo:target) .nj-cover{display:none}
+#nojs .nj-body{flex:1;width:100%;max-width:44em;margin:0 auto;box-sizing:border-box;padding:1.4em 1.2em 1.5em}
+#nojs .nj-step.center .nj-body,#nojs .nj-step.vcenter .nj-body{display:flex;flex-direction:column;justify-content:center}
+#nojs .nj-step.center .nj-body > h2,#nojs .nj-step.center .nj-body > .pl-txt{text-align:center}
+#nojs .nj-body h2{font-size:1.35em;line-height:1.25;margin:0 0 .6em}
+#nojs .nj-nav{position:sticky;bottom:0;display:flex;align-items:center;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:var(--pl-paper);border-top:1px solid var(--pl-line)}
+#nojs .nj-c{flex:1;text-align:center;font-size:13px;color:var(--pl-muted)}
+#nojs .bk-show{display:none} #nojs .bk-hide{display:block}
+#nojs .nj-write{min-height:4em;border-bottom:1.5px dashed var(--pl-warm);margin-top:.4em}
+#nojs .nj-end .ct{font-size:1.8em;font-weight:700;text-align:center;margin:0 0 .3em}
+#nojs .nj-end .cs{text-align:center;color:var(--pl-muted);white-space:pre-wrap}
+#nojs .nj-attr{font-size:.6em;color:var(--pl-muted);text-align:center;padding:1em;display:none}
+#nojs:not(:has(.nj-step:target)):not(:has(#todo:target)) .nj-attr{display:block}
+/* «ver todo seguido» */
+#todo:target ~ .nj-step{display:flex;min-height:0}
+#todo:target ~ .nj-step .nj-nav{display:none}
+#todo:target ~ .nj-step .nj-body{border-bottom:1px solid var(--pl-line)}
+/* nota para el catequista: se abre y se cierra tocándola (sin JavaScript) */
+#nojs .nj-note{position:static}
+#nojs .nj-note > summary{list-style:none;cursor:pointer;font-weight:700;font-size:15px;color:#8a4a0c;background:#fdf0e1;border:1.5px solid #f0c48f;border-radius:12px;padding:.45em .8em;white-space:nowrap}
+#nojs .nj-note > summary::-webkit-details-marker{display:none}
+#nojs .nj-note[open] > summary{background:#f8dcb8}
+#nojs .nj-notebox{position:absolute;bottom:calc(100% + 10px);left:12px;right:12px;max-width:30em;margin:0 auto;background:#fffaf3;color:#5a3108;border:2px dashed #e8913a;border-radius:14px;padding:.8em 1em;font-size:16px;line-height:1.45;white-space:pre-wrap;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+#nojs .nj-nav{flex-wrap:nowrap}
+
+#nojs .nj-nav .nj-btn{white-space:nowrap}
+#nojs .nj-c{white-space:nowrap}
+@media (max-width:440px){ #nojs .nj-nav{gap:7px;padding-left:10px;padding-right:10px} #nojs .nj-nav .w{display:none} #nojs .nj-nav .nj-btn{padding:.5em .8em;font-size:15px} #nojs .nj-note > summary{padding:.45em .6em;font-size:14px} #nojs .nj-c{font-size:12px} }
+
+/* en la vista previa de WhatsApp el borde de abajo queda tapado: la barra va dentro de la página (arriba y al final), no fija */
+#nojs .nj-step{min-height:0}
+#nojs .nj-step.center .nj-body,#nojs .nj-step.vcenter .nj-body{display:block;padding-top:1.4em}
+#nojs .nj-nav{position:relative;max-width:44em;width:100%;box-sizing:border-box;margin:0 auto;border:1px solid var(--pl-line);border-radius:16px;padding:10px 12px}
+#nojs .nj-nav:not(.nj-top){margin-bottom:45vh;width:calc(100% - 20px);background:var(--pl-paper)}
+#nojs .nj-top{margin-top:12px;background:transparent;border-color:transparent}
+#nojs .nj-step .nj-body{padding-bottom:1em}
+#todo:target ~ .nj-step .nj-top{display:none}
+#nojs .nj-cover{padding-bottom:45vh}
+
+#nojs .nj-notebox{bottom:auto;top:calc(100% + 10px)}
+</style>
+</head><body>
+<div id="nojs" class="pl-scope"><section class="nj-cover" id="inicio"><div class="nj-eyebrow">Espacio</div><h1>Magnifica Humanitas · Capítulo tercero</h1><p class="nj-sub">13 de octubre de 2026</p><p class="nj-meta">39 pasos</p><a class="nj-btn pri big" href="#p1">Comenzar</a><br><a class="nj-link" href="#todo">o ver todo seguido</a></section><div id="todo"></div><section class="nj-step" id="p1"><nav class="nj-nav nj-top"><a class="nj-btn" href="#inicio">←<span class="w"> Anterior</span></a><span class="nj-c">1 de 39</span><a class="nj-btn pri" href="#p2">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 90</span><div class="bk-kick">Capítulo tercero</div><div class="bk-c"><p>Después de haber recordado los principios que iluminan la Doctrina social, deseo dirigir la mirada hacia algunos desafíos que afectan a nuestro modo de vivir este tiempo. <span class="bk-gap">[…]</span> Estamos llamados a interrogarnos sobre el gran proyecto de nuestra época: ¿qué estamos construyendo? Mientras el desarrollo tecnológico cambia rápidamente lenguajes, relaciones, instituciones y formas de poder, nosotros, los creyentes, debemos y podemos elegir en qué proyecto trabajar y con qué estilo, para custodiar y valorar la magnífica humanidad que nos ha sido brindada como don. No se trata de una decisión sobre nuestro futuro, sino sobre nuestro presente, porque la IA y las demás tecnologías emergentes ya son parte de nuestra vida cotidiana.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#inicio">←<span class="w"> Anterior</span></a><span class="nj-c">1 de 39</span><a class="nj-btn pri" href="#p2">Siguiente →</a></nav></section><section class="nj-step" id="p2"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p1">←<span class="w"> Anterior</span></a><span class="nj-c">2 de 39</span><a class="nj-btn pri" href="#p3">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 91</span><div class="bk-kick">Capítulo tercero</div><div class="bk-c"><p>Me acompaña la convicción de que el modo concreto de vivir las relaciones sociales a la luz del Evangelio no está establecido de una vez para siempre, sino que sigue siendo una tarea confiada de generación en generación a la comunidad cristiana. <span class="bk-gap">[…]</span></p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p1">←<span class="w"> Anterior</span></a><span class="nj-c">2 de 39</span><a class="nj-btn pri" href="#p3">Siguiente →</a></nav></section><section class="nj-step" id="p3"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p2">←<span class="w"> Anterior</span></a><span class="nj-c">3 de 39</span><a class="nj-btn pri" href="#p4">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 92</span><div class="bk-kick">Capítulo tercero · El paradigma tecnocrático y el poder digital</div><div class="bk-c"><p><span class="bk-gap">[…]</span> Así se manifiesta con mayor evidencia que la técnica no es un simple instrumento y que, cuando se vuelve criterio, termina por establecer qué cuenta y qué puede descartarse, reduciendo la creación a un objeto de explotación y a las personas a engranajes de un sistema que sea cada vez más eficaz.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p2">←<span class="w"> Anterior</span></a><span class="nj-c">3 de 39</span><a class="nj-btn pri" href="#p4">Siguiente →</a></nav></section><section class="nj-step" id="p4"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p3">←<span class="w"> Anterior</span></a><span class="nj-c">4 de 39</span><a class="nj-btn pri" href="#p5">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 93</span><div class="bk-kick">Capítulo tercero · El paradigma tecnocrático y el poder digital</div><div class="bk-c"><p><span class="bk-gap">[…]</span> En sí mismas, dichas innovaciones pueden ser una gran ayuda para el desarrollo humano integral y el cuidado de la Casa común. Pero, precisamente por su poder, pueden actuar como un acelerador del paradigma tecnocrático y, por ello, necesitan un nuevo marco espiritual, ético y político. <span class="bk-gap">[…]</span></p></div></div><div class="pl-txt "><b>Paradigma tecnocrático: </b>Es una mentalidad o forma de ver el mundo en la que la tecnología, la eficacia y el lucro se convierten en la medida de todo.</div></div><nav class="nj-nav"><a class="nj-btn" href="#p3">←<span class="w"> Anterior</span></a><span class="nj-c">4 de 39</span><a class="nj-btn pri" href="#p5">Siguiente →</a></nav></section><section class="nj-step" id="p5"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p4">←<span class="w"> Anterior</span></a><span class="nj-c">5 de 39</span><a class="nj-btn pri" href="#p6">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 94</span><div class="bk-kick">Capítulo tercero · El paradigma tecnocrático y el poder digital</div><div class="bk-c"><p><span class="bk-gap">[…]</span> Por eso el progreso técnico, valioso en sí mismo, requiere un discernimiento sobre la visión antropológica que lo guía y los fines que persigue. Si el desarrollo tecnológico avanza sin una adecuada maduración ética y social, puede suceder que aumenten los medios sin que crezca en la misma medida la humanidad: se “tiene más”, pero no se “es más”, y la persona corre el riesgo de ser valorada principalmente en base al rendimiento que ofrece.<sup class="bk-fn" data-fn="122">122</sup></p></div></div><div class="pl-txt "><b>Visión antropológica:</b> conjunto de convicciones y premisas fundamentales sobre quién es el ser humano, cuál es su dignidad, qué lo distingue de otras realidades y cuál es su sentido último.</div></div><nav class="nj-nav"><a class="nj-btn" href="#p4">←<span class="w"> Anterior</span></a><span class="nj-c">5 de 39</span><a class="nj-btn pri" href="#p6">Siguiente →</a></nav></section><section class="nj-step" id="p6"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p5">←<span class="w"> Anterior</span></a><span class="nj-c">6 de 39</span><a class="nj-btn pri" href="#p7">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 95</span><div class="bk-kick">Capítulo tercero · El paradigma tecnocrático y el poder digital</div><div class="bk-c"><p><span class="bk-gap">[…]</span> Cuando un poder de tal magnitud se concentra en pocas manos, tiende a hacerse opaco y a eludir el control público, y crece el riesgo de un desarrollo distorsionado que provoca nuevas dependencias, exclusiones, manipulaciones y desigualdades.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p5">←<span class="w"> Anterior</span></a><span class="nj-c">6 de 39</span><a class="nj-btn pri" href="#p7">Siguiente →</a></nav></section><section class="nj-step" id="p7"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p6">←<span class="w"> Anterior</span></a><span class="nj-c">7 de 39</span><a class="nj-btn pri" href="#p8">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 96</span><div class="bk-kick">Capítulo tercero · El paradigma tecnocrático y el poder digital</div><div class="bk-c"><p>Frente a esta concentración de poder en el mundo digital, los grandes principios de la Doctrina social se convierten en criterios para juzgar y discernir el nuevo escenario: la dignidad inalienable de la persona, el bien común, el destino universal de los bienes, la subsidiariedad, la solidaridad y la justicia social. Estos principios exigen verificar si el poder de las infraestructuras digitales y de los algoritmos favorece realmente la participación y la responsabilidad, protege a los más vulnerables, asegura un acceso equitativo a las oportunidades y se ordena al bien de todos. <span class="bk-gap">[…]</span></p></div></div><div class="pl-txt ">Principios de la Doctrina social de la Iglesia: 
+cf. Compendio de la Doctrina Social de la Iglesia <i>Capítulo Tercero</i>, n.º 160 a 208; 
+cf. Magnifica Humanitas <i>Capitulo Segundo: Fundamentos y principios de la Doctrina social de la Iglesia</i>, n° 59 a 81.</div></div><nav class="nj-nav"><a class="nj-btn" href="#p6">←<span class="w"> Anterior</span></a><span class="nj-c">7 de 39</span><a class="nj-btn pri" href="#p8">Siguiente →</a></nav></section><section class="nj-step" id="p8"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p7">←<span class="w"> Anterior</span></a><span class="nj-c">8 de 39</span><a class="nj-btn pri" href="#p9">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 97</span><div class="bk-kick">Capítulo tercero · La inteligencia artificial</div><div class="bk-c"><p><span class="bk-gap">[…]</span> Me limito a recordar algunos elementos esenciales para un discernimiento moral y social que proteja el primado de la persona, con el fin de que sea siempre la inteligencia humana, con su conciencia y su libertad, la que guíe las innovaciones técnicas y establezca con responsabilidad su uso y sus límites.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p7">←<span class="w"> Anterior</span></a><span class="nj-c">8 de 39</span><a class="nj-btn pri" href="#p9">Siguiente →</a></nav></section><section class="nj-step" id="p9"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p8">←<span class="w"> Anterior</span></a><span class="nj-c">9 de 39</span><a class="nj-btn pri" href="#p10">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 98</span><div class="bk-kick">Capítulo tercero · La inteligencia artificial</div><div class="bk-c"><p>Es oportuno anteponer dos consideraciones: la primera es que cualquier afirmación sobre la IA corre el riesgo de quedar obsoleta en poco tiempo, dada la impresionante velocidad de desarrollo de estos sistemas. En segundo lugar, todos nosotros, incluidos quienes los diseñan, sabemos muy poco sobre su funcionamiento efectivo. <span class="bk-gap">[…]</span> Se manifiesta, por tanto, la urgencia de un doble compromiso: por una parte, una profundización de la investigación científica; por otra, un ejercicio de discernimiento moral y espiritual.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p8">←<span class="w"> Anterior</span></a><span class="nj-c">9 de 39</span><a class="nj-btn pri" href="#p10">Siguiente →</a></nav></section><section class="nj-step" id="p10"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p9">←<span class="w"> Anterior</span></a><span class="nj-c">10 de 39</span><a class="nj-btn pri" href="#p11">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 99</span><div class="bk-kick">Capítulo tercero · La inteligencia artificial</div><div class="bk-c"><p>No es posible dar una definición única y completa de la IA. Lo que podemos decir es que hay que evitar el equívoco de equiparar esta “inteligencia” a la humana. <span class="bk-gap">[…]</span> Al hacerlo, a menudo la superan en velocidad y amplitud de cálculo, ofreciendo beneficios concretos en numerosos campos. Y, sin embargo, esta potencia sigue ligada exclusivamente al tratamiento de datos: las denominadas inteligencias artificiales no viven una experiencia, no poseen un cuerpo, no pasan por la alegría y el dolor, no maduran en las relaciones ni conocen desde dentro lo que significan el amor, el trabajo, la amistad y la responsabilidad. <span class="bk-gap">[…]</span> Pueden imitar lenguajes, comportamientos, valoraciones; pueden simular empatía o comprensión, pero no conocen lo que producen, porque no residen en el horizonte afectivo, relacional y espiritual en el que el ser humano se vuelve sabio. <span class="bk-gap">[…]</span> No es la experiencia de quien se deja modelar por la vida y crece en el tiempo por medio de decisiones, errores, perdón y fidelidad; es más bien una adaptación estadística a partir de datos y retroalimentaciones, que puede ser muy eficaz, pero no implica un crecimiento interior.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p9">←<span class="w"> Anterior</span></a><span class="nj-c">10 de 39</span><a class="nj-btn pri" href="#p11">Siguiente →</a></nav></section><section class="nj-step" id="p11"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p10">←<span class="w"> Anterior</span></a><span class="nj-c">11 de 39</span><a class="nj-btn pri" href="#p12">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 100</span><div class="bk-kick">Capítulo tercero · Una ayuda valiosa que requiere atención</div><div class="bk-c"><p><span class="bk-gap">[…]</span> En los últimos años su uso privado ha crecido notablemente, y desde distintos ámbitos se reflexiona sobre las oportunidades y los riesgos vinculados a su rápida difusión. En el uso personal, tres aspectos, en particular, deben ser tenidos en especial consideración: la facilidad para lograr el resultado, la impresión de objetividad y la simulación de la comunicación humana. La velocidad y la sencillez con la que es posible obtener indicaciones, elaboraciones complejas, contenidos mediáticos y formas de asistencia concreta simplifican nuestras vidas, pero también pueden acostumbrarnos a delegar demasiado y a buscar respuestas rápidas, debilitando el juicio personal y la creatividad. La impresión de objetividad que las respuestas y las propuestas de estos sistemas pueden suscitar, corre el riesgo de hacernos olvidar que estas reflejan los parámetros culturales de quienes las han proyectado y adiestrado, con todas sus virtudes y defectos. La imitación artificial de una comunicación humana positiva —palabras de consejo, de empatía, de amistad, de amor— puede resultar gratificante e incluso útil, pero en usuarios poco conscientes puede inducir a engaño y dar la falsa impresión de estar en una relación con un auténtico sujeto personal. <span class="bk-gap">[…]</span> La imitación artificial de la relación de cuidado o de acompañamiento puede ser peligrosa cuando se introduce en un contexto pobre de relaciones y de afectos reales; entonces el riesgo no es tanto que una persona crea que está hablando con otra persona, sino que pierda el deseo mismo de buscar realmente al otro.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p10">←<span class="w"> Anterior</span></a><span class="nj-c">11 de 39</span><a class="nj-btn pri" href="#p12">Siguiente →</a></nav></section><section class="nj-step" id="p12"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p11">←<span class="w"> Anterior</span></a><span class="nj-c">12 de 39</span><a class="nj-btn pri" href="#p13">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 101</span><div class="bk-kick">Capítulo tercero · Una ayuda valiosa que requiere atención</div><div class="bk-c"><p><span class="bk-gap">[…]</span> Las ventajas en términos de eficiencia y las potencialidades de mejora de algunos servicios son evidentes; sin embargo, una adopción rápida y acrítica nos expone a diversos riesgos, como el de subestimar el impacto ambiental. Los actuales sistemas de IA requieren grandes cantidades de energía y agua, inciden de manera significativa en las emisiones de anhídrido carbónico y consumen recursos de manera intensiva. <span class="bk-gap">[…]</span> Por eso es esencial desarrollar soluciones tecnológicas más sostenibles para reducir el impacto sobre el medioambiente y cuidar nuestra Casa común.<sup class="bk-fn" data-fn="124">124</sup></p></div></div><div class="pl-txt ">Casa común: se refiere a la Tierra como un hogar compartido por toda la humanidad y el conjunto de la creación reconociendo la profunda interdependencia entre el medioambiente y la vida de los seres humanos. Un término popularizado globalmente por el Papa Francisco en su encíclica Laudato si&#39; de 2015.</div></div><nav class="nj-nav"><a class="nj-btn" href="#p11">←<span class="w"> Anterior</span></a><span class="nj-c">12 de 39</span><a class="nj-btn pri" href="#p13">Siguiente →</a></nav></section><section class="nj-step" id="p13"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p12">←<span class="w"> Anterior</span></a><span class="nj-c">13 de 39</span><a class="nj-btn pri" href="#p14">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 102</span><div class="bk-kick">Capítulo tercero · Responsabilidad, transparencia y gobernanza de la IA</div><div class="bk-c"><p><span class="bk-gap">[…]</span> Las decisiones delicadas que repercuten en el trabajo, el acceso a créditos y a otros servicios, y la reputación de las personas, corren el riesgo de ser confiadas completamente a sistemas automatizados que no conocen «la compasión, la misericordia, el perdón y, sobre todo, la apertura a la esperanza de cambio en el individuo»,<sup class="bk-fn" data-fn="125">125</sup> pudiendo así producir nuevas formas de descarte. Puede haber usos evidentemente antihumanos, como la manipulación de la información o la violación de la privacidad, pero puede haber también un engaño menos evidente, cuando los sistemas de IA, presentándose como neutrales y objetivos, reflejan y refuerzan estereotipos o posiciones ideológicas de quienes los han diseñado y programado.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p12">←<span class="w"> Anterior</span></a><span class="nj-c">13 de 39</span><a class="nj-btn pri" href="#p14">Siguiente →</a></nav></section><section class="nj-step" id="p14"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p13">←<span class="w"> Anterior</span></a><span class="nj-c">14 de 39</span><a class="nj-btn pri" href="#p15">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 103</span><div class="bk-kick">Capítulo tercero · Responsabilidad, transparencia y gobernanza de la IA</div><div class="bk-c"><p><span class="bk-gap">[…]</span> Lo que disminuye, en este proceso, no es sólo la empatía hacia el excluido, que puede ser imitada artificialmente, sino la responsabilidad política, porque el descarte de los débiles queda revestido de una neutralidad y una objetividad ante las cuales es imposible protestar. <span class="bk-gap">[…]</span></p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p13">←<span class="w"> Anterior</span></a><span class="nj-c">14 de 39</span><a class="nj-btn pri" href="#p15">Siguiente →</a></nav></section><section class="nj-step" id="p15"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p14">←<span class="w"> Anterior</span></a><span class="nj-c">15 de 39</span><a class="nj-btn pri" href="#p16">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 104</span><div class="bk-kick">Capítulo tercero · Responsabilidad, transparencia y gobernanza de la IA</div><div class="bk-c"><p><span class="bk-gap">[…]</span> Si un sistema se concibe o emplea tratando algunas vidas como menos dignas, o las excluye sin posibilidad de apelación, no es un simple instrumento que “hay que usar correctamente”; introduce ya un criterio que contradice la dignidad inalienable de la persona. Por eso, el discernimiento ético no se puede limitar a preguntarse si usamos un determinado sistema para un fin bueno o malo, sino que debe interrogarse también sobre el modo en el que está diseñado y qué idea de persona y de sociedad queda inscrita en los datos y en los modelos que lo guían.<sup class="bk-fn" data-fn="126">126</sup></p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p14">←<span class="w"> Anterior</span></a><span class="nj-c">15 de 39</span><a class="nj-btn pri" href="#p16">Siguiente →</a></nav></section><section class="nj-step" id="p16"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p15">←<span class="w"> Anterior</span></a><span class="nj-c">16 de 39</span><a class="nj-btn pri" href="#p17">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 105</span><div class="bk-kick">Capítulo tercero · Responsabilidad, transparencia y gobernanza de la IA</div><div class="bk-c"><p>Para que la IA respete la dignidad humana y sirva realmente al bien común, es esencial que las responsabilidades estén claras en todas las etapas: desde quienes diseñan y programan los sistemas hasta quienes los utilizan y quienes resuelven confiarles las decisiones concretas. <span class="bk-gap">[…]</span> Es aquí donde se vuelve decisivo lo que llamamos “responsabilidad”(accountability): la posibilidad de identificar quién debe “rendir cuentas” de las decisiones, motivarlas, controlarlas y, cuando es necesario, cuestionarlas y remediar los daños que derivan de ellas.<sup class="bk-fn" data-fn="127">127</sup></p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p15">←<span class="w"> Anterior</span></a><span class="nj-c">16 de 39</span><a class="nj-btn pri" href="#p17">Siguiente →</a></nav></section><section class="nj-step" id="p17"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p16">←<span class="w"> Anterior</span></a><span class="nj-c">17 de 39</span><a class="nj-btn pri" href="#p18">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 106</span><div class="bk-kick">Capítulo tercero · Responsabilidad, transparencia y gobernanza de la IA</div><div class="bk-c"><p><span class="bk-gap">[…]</span> Esta exigencia es aún más urgente porque existe a menudo un desequilibrio entre la velocidad del desarrollo tecnológico y el ritmo al que maduran la conciencia, las normas, los controles y las instituciones capaces de gobernar sus efectos. <span class="bk-gap">[…]</span></p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p16">←<span class="w"> Anterior</span></a><span class="nj-c">17 de 39</span><a class="nj-btn pri" href="#p18">Siguiente →</a></nav></section><section class="nj-step" id="p18"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p17">←<span class="w"> Anterior</span></a><span class="nj-c">18 de 39</span><a class="nj-btn pri" href="#p19">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 107</span><div class="bk-kick">Capítulo tercero · Responsabilidad, transparencia y gobernanza de la IA</div><div class="bk-c"><p><span class="bk-gap">[…]</span> No serviría de nada una IA más moral, si esta moral es decidida por unos pocos. Se necesita una política más presente, capaz de ralentizar donde todo acelera y de proteger los espacios en los que las comunidades pueden seguir participando e interrogándose.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p17">←<span class="w"> Anterior</span></a><span class="nj-c">18 de 39</span><a class="nj-btn pri" href="#p19">Siguiente →</a></nav></section><section class="nj-step" id="p19"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p18">←<span class="w"> Anterior</span></a><span class="nj-c">19 de 39</span><a class="nj-btn pri" href="#p20">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 108</span><div class="bk-kick">Capítulo tercero · Responsabilidad, transparencia y gobernanza de la IA</div><div class="bk-c"><p><span class="bk-gap">[…]</span> A la luz del bien común y del destino universal de los bienes, este fenómeno suscita seria preocupación: pequeños grupos muy influyentes pueden orientar informaciones y consumos, condicionar procesos democráticos e incidir en las dinámicas económicas en beneficio propio, contradiciendo la justicia social y la solidaridad entre los pueblos. Por eso es indispensable que el uso de la IA —sobre todo cuando involucra bienes públicos y derechos fundamentales— esté acompañado de criterios claros y controles efectivos, inspirados en la participación y la subsidiariedad; las comunidades y los cuerpos intermedios no pueden ser reducidos a destinatarios de decisiones tomadas en otros lugares, sino que deben poder contribuir al discernimiento y a la vigilancia. <span class="bk-gap">[…]</span> Hace falta una creatividad capaz de gestionarlos como uno de los bienes comunes o colectivos, en la lógica del compartir, como ya sugería san Juan Pablo II a propósito de los bienes colectivos.<sup class="bk-fn" data-fn="128">128</sup></p></div></div><div class="pl-txt "><b>Comunidades y cuerpos intermedios:</b> Son agrupaciones sociales intermedias (como asociaciones, familias, sindicatos o cooperativas) situadas entre el individuo y el Estado, fundamentales para ejercer la participación, la subsidiariedad y la vigilancia frente a poderes centralizados.
+cf. Compendio de la Doctrina Social de la Iglesia <i>Capítulo Tercero</i>, n.º 185 a 187; 
+cf. Magnifica Humanitas <i>Capitulo Segundo: Fundamentos y principios de la Doctrina social de la Iglesia</i>, n° 68 a 72.</div></div><nav class="nj-nav"><a class="nj-btn" href="#p18">←<span class="w"> Anterior</span></a><span class="nj-c">19 de 39</span><a class="nj-btn pri" href="#p20">Siguiente →</a></nav></section><section class="nj-step" id="p20"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p19">←<span class="w"> Anterior</span></a><span class="nj-c">20 de 39</span><a class="nj-btn pri" href="#p21">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 109</span><div class="bk-kick">Capítulo tercero · Responsabilidad, transparencia y gobernanza de la IA</div><div class="bk-c"><p>Los principios de la Doctrina social nos ayudan a leer esta nueva realidad. En un mundo donde pocos sujetos concentran datos, capital informático y capacidad normativa, hablar de bien común significa desenmascarar esta nueva asimetría epistémica, económica y política, nombrando los nuevos monopolios de la IA. Hablar de destino universal de los bienes significa encontrar modos de asegurar el acceso universal a las tecnologías y a la formación. Hablar de subsidiariedad exige proteger la capacidad de las comunidades de decidir y corregir, sin relegar su intervención a una vigilancia posterior, una vez que los estándares hayan sido establecidos en otro sitio. Hablar de solidaridad obliga a reconocer el trabajo invisible, a menudo explotado, que alimenta los modelos algorítmicos. Hablar de justicia pide cuestionar las geografías del poder que definen quién puede programar los modelos y quién es sólo objeto de esa programación, y reconocer que la justicia social no es sólo un objetivo que hay que tutelar después de la adopción de las tecnologías, sino una condición que se debe poner en práctica desde su diseño.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p19">←<span class="w"> Anterior</span></a><span class="nj-c">20 de 39</span><a class="nj-btn pri" href="#p21">Siguiente →</a></nav></section><section class="nj-step" id="p21"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p20">←<span class="w"> Anterior</span></a><span class="nj-c">21 de 39</span><a class="nj-btn pri" href="#p22">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 110</span><div class="bk-kick">Capítulo tercero · Responsabilidad, transparencia y gobernanza de la IA</div><div class="bk-c"><p><span class="bk-gap">[…]</span> Desarmar la IA significa sustraerla a la lógica de la competencia armamentística, que hoy ya no es sólo militar sino económica y cognitiva. Es la carrera por el algoritmo más eficaz y por el banco de datos más amplio, para consolidar una ventaja geopolítica o comercial sobre todos los demás. Desarmar quiere decir romper esta equivalencia entre poder tecnológico y derecho a gobernar. Desarmar no significa renunciar a la tecnología, sino impedirle el dominio sobre lo humano. <span class="bk-gap">[…]</span> Por eso, no basta regularla; es necesario desarmarla y hacerla acogedora.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p20">←<span class="w"> Anterior</span></a><span class="nj-c">21 de 39</span><a class="nj-btn pri" href="#p22">Siguiente →</a></nav></section><section class="nj-step" id="p22"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p21">←<span class="w"> Anterior</span></a><span class="nj-c">22 de 39</span><a class="nj-btn pri" href="#p23">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 111</span><div class="bk-kick">Capítulo tercero · Responsabilidad, transparencia y gobernanza de la IA</div><div class="bk-c"><p><span class="bk-gap">[…]</span> Así como el autor de una obra artística o literaria está obligado a considerar los valores que manifiesta, así también ellos están llamados a tratar con la debida seriedad los valores que infunden en sus proyectos: con transparencia, con responsabilidad hacia las comunidades involucradas y con atención a verificar que lo que se cultiva sea realmente un bien.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p21">←<span class="w"> Anterior</span></a><span class="nj-c">22 de 39</span><a class="nj-btn pri" href="#p23">Siguiente →</a></nav></section><section class="nj-step" id="p23"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p22">←<span class="w"> Anterior</span></a><span class="nj-c">23 de 39</span><a class="nj-btn pri" href="#p24">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 112</span><div class="bk-kick">Capítulo tercero · Lo que no podemos perder</div><div class="bk-c"><p>Después de haber recordado las cuestiones de la responsabilidad y del gobierno de la IA, es necesario volver a nuestro tema central: qué significa custodiar lo humano. <span class="bk-gap">[…]</span> Cuando la eficiencia se vuelve medida de valor, el ser humano es tentado a considerarse como un proyecto que debe optimizarse más que como una criatura llamada a la relación y a la comunión.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p22">←<span class="w"> Anterior</span></a><span class="nj-c">23 de 39</span><a class="nj-btn pri" href="#p24">Siguiente →</a></nav></section><section class="nj-step" id="p24"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p23">←<span class="w"> Anterior</span></a><span class="nj-c">24 de 39</span><a class="nj-btn pri" href="#p25">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 113</span><div class="bk-kick">Capítulo tercero · Lo que no podemos perder</div><div class="bk-c"><p><span class="bk-gap">[…]</span> En efecto, no es sólo la carencia lo que genera desorden. También aquello que crece sin medida puede convertirse en una forma de pobreza. En un ecosistema, la armonía se rompe cuando una sola especie prolifera en detrimento de las demás; en lo humano, ocurre lo mismo cuando una facultad pretende ser la medida de todo. <span class="bk-gap">[…]</span> El poder técnico, si no se equilibra, no nos hace más capaces; nos aísla, y nos expone aún más a lógicas de dominio y de exclusión. <span class="bk-gap">[…]</span></p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p23">←<span class="w"> Anterior</span></a><span class="nj-c">24 de 39</span><a class="nj-btn pri" href="#p25">Siguiente →</a></nav></section><section class="nj-step" id="p25"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p24">←<span class="w"> Anterior</span></a><span class="nj-c">25 de 39</span><a class="nj-btn pri" href="#p26">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 114</span><div class="bk-kick">Capítulo tercero · Lo que no podemos perder</div><div class="bk-c"><p><span class="bk-gap">[…]</span> La capacidad de saber cuidarnos los unos a los otros es una dimensión importante de nuestro ser humano. <span class="bk-gap">[…]</span> Leer cuentos a un niño, acompañar a una persona anciana o hacer acogedor un espacio, son gestos que se viven en un ambiente familiar, pero que nos ayudan a aprender y a interiorizar la importancia del cuidado a nivel social y nos entrenan para reconocer al otro como persona digna de atención. <span class="bk-gap">[…]</span></p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p24">←<span class="w"> Anterior</span></a><span class="nj-c">25 de 39</span><a class="nj-btn pri" href="#p26">Siguiente →</a></nav></section><section class="nj-step" id="p26"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p25">←<span class="w"> Anterior</span></a><span class="nj-c">26 de 39</span><a class="nj-btn pri" href="#p27">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 115</span><div class="bk-kick">Capítulo tercero · Narrativas de fondo: transhumanismo y posthumanismo</div><div class="bk-c"><p>Tratando de hacer emerger los presupuestos culturales que acompañan la revolución digital en curso, quisiera ahora dirigir la atención a algunas corrientes que interpretan el progreso como una superación del ser humano y que podemos clasificar con los nombres de transhumanismo y posthumanismo. Estas corrientes constituyen el trasfondo ideológico que reside en algunos centros de poder tecnológico y colonizan el imaginario colectivo de forma simplificada, especialmente en los medios y en las redes sociales, induciendo el entusiasmo por las nuevas tecnologías con una visión futurista de “humanidad potenciada” o de “hombre hibridado” con la máquina.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p25">←<span class="w"> Anterior</span></a><span class="nj-c">26 de 39</span><a class="nj-btn pri" href="#p27">Siguiente →</a></nav></section><section class="nj-step" id="p27"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p26">←<span class="w"> Anterior</span></a><span class="nj-c">27 de 39</span><a class="nj-btn pri" href="#p28">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 116</span><div class="bk-kick">Capítulo tercero · Narrativas de fondo: transhumanismo y posthumanismo</div><div class="bk-c"><p><span class="bk-gap">[…]</span> Pueden ser comparadas con un archipiélago de islas conceptuales diferentes, pero unidas por el mismo mar de presupuestos: la centralidad de la técnica y el sueño de superar los límites de la condición humana. En general, el transhumanismo imagina una potenciación del ser humano por medio de las tecnologías —biomedicina, ingeniería del cuerpo, dispositivos, algoritmos—, con la aspiración de incrementar el rendimiento y las capacidades. El posthumanismo, sobre todo en sus versiones más radicales, va más allá: critica el antropocentrismo y plantea una forma de hibridación entre el ser humano, la máquina y el ambiente, hasta imaginar que atravesará el umbral en el que la humanidad se superará a sí misma, entrando en una nueva etapa evolutiva. <span class="bk-gap">[…]</span></p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p26">←<span class="w"> Anterior</span></a><span class="nj-c">27 de 39</span><a class="nj-btn pri" href="#p28">Siguiente →</a></nav></section><section class="nj-step" id="p28"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p27">←<span class="w"> Anterior</span></a><span class="nj-c">28 de 39</span><a class="nj-btn pri" href="#p29">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 117</span><div class="bk-kick">Capítulo tercero · Narrativas de fondo: transhumanismo y posthumanismo</div><div class="bk-c"><p><span class="bk-gap">[…]</span> Por ello es necesario distinguir con claridad: una cosa es integrar las tecnologías en una visión humana y relacional; otra es dejarse guiar por un imaginario que desprecia el límite y promete una “salvación” puramente técnica.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p27">←<span class="w"> Anterior</span></a><span class="nj-c">28 de 39</span><a class="nj-btn pri" href="#p29">Siguiente →</a></nav></section><section class="nj-step" id="p29"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p28">←<span class="w"> Anterior</span></a><span class="nj-c">29 de 39</span><a class="nj-btn pri" href="#p30">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 118</span><div class="bk-kick">Capítulo tercero · El límite, el corazón, la grandeza del ser humano</div><div class="bk-c"><p><span class="bk-gap">[…]</span> Todo lo que representa un “límite” —incapacidad, enfermedad, ancianidad, sufrimiento, vulnerabilidad— tiende a ser leído principalmente como un defecto que hay que corregir, más que como un espacio en el que el ser humano madura y se abre a la relación. En cambio, debemos recordar que el ser humano no florece a pesar del límite, sino a menudo a través del límite. <span class="bk-gap">[…]</span> Si por un lado es necesario tratar de eliminar el sufrimiento que marca la vida humana, por el otro, es sabio reconocer nuestra finitud constitutiva, sabiendo que «la experiencia religiosa, en particular la fe cristiana, proponen habitar sin simplificaciones esta ambivalencia entre la grandeza y el límite de lo humano, interpretándola a la luz de la relación originaria y fundante con Dios».<sup class="bk-fn" data-fn="131">131</sup></p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p28">←<span class="w"> Anterior</span></a><span class="nj-c">29 de 39</span><a class="nj-btn pri" href="#p30">Siguiente →</a></nav></section><section class="nj-step" id="p30"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p29">←<span class="w"> Anterior</span></a><span class="nj-c">30 de 39</span><a class="nj-btn pri" href="#p31">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 119</span><div class="bk-kick">Capítulo tercero · El límite, el corazón, la grandeza del ser humano</div><div class="bk-c"><p>Es precisamente en nuestro ser limitados donde encuentran lugar la compasión, la sincera preocupación ante las necesidades de los demás, la generosidad que sorprende incluso en medio de la oscuridad y el fracaso, la experiencia espiritual y la adoración a Dios. <span class="bk-gap">[…]</span> Misteriosamente, es en estos casos que podemos encontrar una nueva sabiduría, palpar el afecto de las personas y experimentar la presencia del Señor.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p29">←<span class="w"> Anterior</span></a><span class="nj-c">30 de 39</span><a class="nj-btn pri" href="#p31">Siguiente →</a></nav></section><section class="nj-step" id="p31"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p30">←<span class="w"> Anterior</span></a><span class="nj-c">31 de 39</span><a class="nj-btn pri" href="#p32">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 120</span><div class="bk-kick">Capítulo tercero · El límite, el corazón, la grandeza del ser humano</div><div class="bk-c"><p><span class="bk-gap">[…]</span> Quien ama y desea, en efecto, no puede evitar atravesar la prueba y el sufrimiento, y por eso, a lo largo de los años conservamos en nosotros enseñanzas que quedan marcadas como cicatrices, memoria del camino realizado entre libertad y caídas, sueños y decepciones. <span class="bk-gap">[…]</span> Renunciar a esta aventura, al mismo tiempo dramática y espléndida, en nombre de una presunta superación de todo límite podría ser cualquier cosa, pero no significaría ser humanos.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p30">←<span class="w"> Anterior</span></a><span class="nj-c">31 de 39</span><a class="nj-btn pri" href="#p32">Siguiente →</a></nav></section><section class="nj-step" id="p32"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p31">←<span class="w"> Anterior</span></a><span class="nj-c">32 de 39</span><a class="nj-btn pri" href="#p33">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 121</span><div class="bk-kick">Capítulo tercero · El límite, el corazón, la grandeza del ser humano</div><div class="bk-c"><p><span class="bk-gap">[…]</span> Viktor Frankl decía justamente que en los momentos de horror «hemos llegado a conocer al hombre en estado puro: el hombre es ese ser capaz de inventar las cámaras de gas de Auschwitz, pero también es el ser que ha entrado en esas mismas cámaras con la cabeza erguida y el Padrenuestro o el Shemá Israel en los labios».<sup class="bk-fn" data-fn="133">133</sup></p></div></div><div class="pl-txt "><b>Viktor Frankl:</b> Neurólogo, psiquiatra y pensador austríaco de origen judío, sobreviviente del Holocausto.</div></div><nav class="nj-nav"><a class="nj-btn" href="#p31">←<span class="w"> Anterior</span></a><span class="nj-c">32 de 39</span><a class="nj-btn pri" href="#p33">Siguiente →</a></nav></section><section class="nj-step" id="p33"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p32">←<span class="w"> Anterior</span></a><span class="nj-c">33 de 39</span><a class="nj-btn pri" href="#p34">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 122</span><div class="bk-kick">Capítulo tercero · El límite, el corazón, la grandeza del ser humano</div><div class="bk-c"><p>La finitud, cuando se acoge en la verdad, no empobrece al ser humano, sino que lo abre al reconocimiento del rostro de Dios y del otro. Por lo demás, precisamente porque experimenta el límite —la vulnerabilidad, el dolor, el fracaso— puede reconocer la dignidad propia y ajena como inviolable. Y en la misma experiencia del límite, sigue siendo capaz de intuir una fraternidad más grande que él mismo y de reconocer la injusticia como escándalo. La cultura y el arte, cuando son auténticos, custodian esta chispa, impidiendo la normalización del mal. <span class="bk-gap">[…]</span></p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p32">←<span class="w"> Anterior</span></a><span class="nj-c">33 de 39</span><a class="nj-btn pri" href="#p34">Siguiente →</a></nav></section><section class="nj-step" id="p34"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p33">←<span class="w"> Anterior</span></a><span class="nj-c">34 de 39</span><a class="nj-btn pri" href="#p35">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 123</span><div class="bk-kick">Capítulo tercero · El límite, el corazón, la grandeza del ser humano</div><div class="bk-c"><p><span class="bk-gap">[…]</span> Las conquistas morales tienen casi siempre el rostro de un camino largo y fatigoso, marcado también por contratiempos; pensemos en los procesos de paz interrumpidos o en la lenta aplicación de los compromisos ambientales. Aun así, precisamente la fragilidad de estos resultados demuestra cuán preciosa es la responsabilidad de quienes los inician y los sostienen.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p33">←<span class="w"> Anterior</span></a><span class="nj-c">34 de 39</span><a class="nj-btn pri" href="#p35">Siguiente →</a></nav></section><section class="nj-step" id="p35"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p34">←<span class="w"> Anterior</span></a><span class="nj-c">35 de 39</span><a class="nj-btn pri" href="#p36">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 126</span><div class="bk-kick">Capítulo tercero · El límite, el corazón, la grandeza del ser humano</div><div class="bk-c"><p>Precisamente esta convergencia de instituciones justas, testimonios creíbles y fidelidades cotidianas mantiene viva la esperanza e indica una dirección: hacer que la técnica crezca sin que se repliegue el corazón. Por eso la humanidad —magnífica y herida— no debe ser sustituida ni superada; puede acoger los progresos de la técnica para aliviar los sufrimientos y abrir posibilidades nuevas, siempre que no reniegue de aquello que la hace ser ella misma, es decir, la capacidad de relación y de amor. A este punto se impone una pregunta decisiva: si existe un auténtico “más que humano”, ¿dónde se encuentra? La fe cristiana responde indicando una plenitud que no deriva de una divinización tecnológica, sino de aquella que produce la gracia de Dios, recibida en Cristo.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p34">←<span class="w"> Anterior</span></a><span class="nj-c">35 de 39</span><a class="nj-btn pri" href="#p36">Siguiente →</a></nav></section><section class="nj-step" id="p36"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p35">←<span class="w"> Anterior</span></a><span class="nj-c">36 de 39</span><a class="nj-btn pri" href="#p37">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 127</span><div class="bk-kick">Capítulo tercero · El verdadero “más que humano”: gracia y humanismo cristiano</div><div class="bk-c"><p><span class="bk-gap">[…]</span> Desde hace siglos, la tradición cristiana afirma que el ser humano no está encerrado en los límites de la propia naturaleza, sino que está llamado a trascenderse a sí mismo; no para huir de la realidad o despreciar el límite, sino para realizarse en el amor. <span class="bk-gap">[…]</span> Sin embargo, es posible ser introducidos en el seno de esa vida inextinguible, incluso mientras caminamos entre los límites de este mundo. <span class="bk-gap">[…]</span> Así se realiza la re-creación de lo humano: «El que vive en Cristo es una nueva criatura: lo antiguo ha desaparecido, un ser nuevo se ha hecho presente» (2 Co 5,17).</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p35">←<span class="w"> Anterior</span></a><span class="nj-c">36 de 39</span><a class="nj-btn pri" href="#p37">Siguiente →</a></nav></section><section class="nj-step" id="p37"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p36">←<span class="w"> Anterior</span></a><span class="nj-c">37 de 39</span><a class="nj-btn pri" href="#p38">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 128</span><div class="bk-kick">Capítulo tercero · El verdadero “más que humano”: gracia y humanismo cristiano</div><div class="bk-c"><p><span class="bk-gap">[…]</span> Por el contrario, como explicaba el Papa Francisco, «llegamos a ser plenamente humanos cuando somos más que humanos, cuando le permitimos a Dios que nos lleve más allá de nosotros mismos para alcanzar nuestro ser más verdadero».<sup class="bk-fn" data-fn="137">137</sup> <span class="bk-gap">[…]</span> Para un algoritmo, el error es algo que hay que corregir; para una persona, puede ser el inicio de un cambio profundo. El futuro de una persona no es calculable, sino que está confiado a su libertad ―elevada por la inagotable gracia divina― y a las relaciones que cultiva.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p36">←<span class="w"> Anterior</span></a><span class="nj-c">37 de 39</span><a class="nj-btn pri" href="#p38">Siguiente →</a></nav></section><section class="nj-step" id="p38"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p37">←<span class="w"> Anterior</span></a><span class="nj-c">38 de 39</span><a class="nj-btn pri" href="#p39">Siguiente →</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 129</span><div class="bk-kick">Capítulo tercero · Dos ciudades y dos amores</div><div class="bk-c"><p>El humanismo cristiano no rechaza la ciencia ni la técnica, sino que las asume con gratitud y realismo, y las sitúa “con los pies en la tierra” dentro de una vocación más alta. <span class="bk-gap">[…]</span> En este sentido, la verdadera alternativa no está entre el entusiasmo y el miedo, sino entre dos modos de construir: un progreso que sirve a la persona y a los pueblos, o un progreso que los doblega a lógicas de poder. Al final, la pregunta decisiva sigue siendo la indicada por san Juan Pablo II: la IA, ¿«hace la vida del hombre sobre la tierra, en todos sus aspectos, “más humana”?; ¿la hace más “digna del hombre”?».<sup class="bk-fn" data-fn="138">138</sup> <span class="bk-gap">[…]</span></p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p37">←<span class="w"> Anterior</span></a><span class="nj-c">38 de 39</span><a class="nj-btn pri" href="#p39">Siguiente →</a></nav></section><section class="nj-step" id="p39"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p38">←<span class="w"> Anterior</span></a><span class="nj-c">39 de 39</span><a class="nj-btn pri" href="#p40">Terminar</a></nav><div class="nj-body"><div class="bk bk-mh"><span class="bk-tag">Magnifica Humanitas · 130</span><div class="bk-kick">Capítulo tercero · Dos ciudades y dos amores</div><div class="bk-c"><p>Interrogarnos sobre esta alternativa de progreso y sobre nuestro modo de interpretarlo y vivirlo significa siempre, a fin de cuentas, examinar también nuestro corazón. <span class="bk-gap">[…]</span> Es un amor que nos guía: aquello que amamos realmente, como individuos y como sociedad, orienta nuestra vida y nuestras acciones. <span class="bk-gap">[…]</span> El tiempo de la IA no escapa a esta regla: la construcción de Babel o la de Jerusalén comienza en cada uno de nosotros.</p></div></div></div><nav class="nj-nav"><a class="nj-btn" href="#p38">←<span class="w"> Anterior</span></a><span class="nj-c">39 de 39</span><a class="nj-btn pri" href="#p40">Terminar</a></nav></section><section class="nj-step center" id="p40"><nav class="nj-nav nj-top"><a class="nj-btn" href="#p39">←<span class="w"> Anterior</span></a><span class="nj-c">Final</span><a class="nj-btn pri" href="#inicio">Volver al inicio</a></nav><div class="nj-body nj-end"><p class="ct">¡Gracias por tu tiempo!</p></div><nav class="nj-nav"><a class="nj-btn" href="#p39">←<span class="w"> Anterior</span></a><span class="nj-c">Final</span><a class="nj-btn pri" href="#inicio">Volver al inicio</a></nav></section><p class="nj-attr">Textos tomados de la carta encíclica Magnifica Humanitas de León XIV (15 de mayo de 2026), © Dicasterio para la Comunicación – Libreria Editrice Vaticana.</p></div>
+<script type="application/json" id="enc-data">{"kind":"encuentro","app":"Encuentros","version":"9.4","exportedAt":1791934420278,"attr":["Textos tomados de la carta encíclica Magnifica Humanitas de León XIV (15 de mayo de 2026), © Dicasterio para la Comunicación – Libreria Editrice Vaticana."],"enc":{"id":"emv79hriajqlk","title":"Magnifica Humanitas · Capítulo tercero","sub":"","date":"2026-10-13","closing":{"title":"¡Gracias por tu tiempo!"},"steps":[{"id":"smv79hm8ar384","type":"enciclica","book":{"n":90,"frases":[0,2,3,4],"notas":false,"reveal":false},"min":0.9,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 90\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>Después de haber recordado los principios que iluminan la Doctrina social, deseo dirigir la mirada hacia algunos desafíos que afectan a nuestro modo de vivir este tiempo. \u003cspan class=\"bk-gap\">[…]\u003c/span> Estamos llamados a interrogarnos sobre el gran proyecto de nuestra época: ¿qué estamos construyendo? Mientras el desarrollo tecnológico cambia rápidamente lenguajes, relaciones, instituciones y formas de poder, nosotros, los creyentes, debemos y podemos elegir en qué proyecto trabajar y con qué estilo, para custodiar y valorar la magnífica humanidad que nos ha sido brindada como don. No se trata de una decisión sobre nuestro futuro, sino sobre nuestro presente, porque la IA y las demás tecnologías emergentes ya son parte de nuestra vida cotidiana.\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8a8a3i","type":"enciclica","book":{"n":91,"frases":[0],"notas":false,"reveal":false},"min":0.367,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 91\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>Me acompaña la convicción de que el modo concreto de vivir las relaciones sociales a la luz del Evangelio no está establecido de una vez para siempre, sino que sigue siendo una tarea confiada de generación en generación a la comunidad cristiana. \u003cspan class=\"bk-gap\">[…]\u003c/span>\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8ash60","type":"enciclica","book":{"n":92,"frases":[1],"notas":false,"reveal":false},"min":0.5,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 92\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · El paradigma tecnocrático y el poder digital\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> Así se manifiesta con mayor evidencia que la técnica no es un simple instrumento y que, cuando se vuelve criterio, termina por establecer qué cuenta y qué puede descartarse, reduciendo la creación a un objeto de explotación y a las personas a engranajes de un sistema que sea cada vez más eficaz.\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8amf88","type":"enciclica","book":{"n":93,"frases":[1,2],"notas":false,"reveal":false},"min":0.667,"minAuto":true,"post":"**Paradigma tecnocrático: **Es una mentalidad o forma de ver el mundo en la que la tecnología, la eficacia y el lucro se convierten en la medida de todo.","html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 93\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · El paradigma tecnocrático y el poder digital\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> En sí mismas, dichas innovaciones pueden ser una gran ayuda para el desarrollo humano integral y el cuidado de la Casa común. Pero, precisamente por su poder, pueden actuar como un acelerador del paradigma tecnocrático y, por ello, necesitan un nuevo marco espiritual, ético y político. \u003cspan class=\"bk-gap\">[…]\u003c/span>\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8aqei8","type":"enciclica","book":{"n":94,"frases":[1,2],"notas":false,"reveal":false},"min":0.9,"minAuto":true,"post":"**Visión antropológica:** conjunto de convicciones y premisas fundamentales sobre quién es el ser humano, cuál es su dignidad, qué lo distingue de otras realidades y cuál es su sentido último.","html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 94\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · El paradigma tecnocrático y el poder digital\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> Por eso el progreso técnico, valioso en sí mismo, requiere un discernimiento sobre la visión antropológica que lo guía y los fines que persigue. Si el desarrollo tecnológico avanza sin una adecuada maduración ética y social, puede suceder que aumenten los medios sin que crezca en la misma medida la humanidad: se “tiene más”, pero no se “es más”, y la persona corre el riesgo de ser valorada principalmente en base al rendimiento que ofrece.\u003csup class=\"bk-fn\" data-fn=\"122\">122\u003c/sup>\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8b5mdv","type":"enciclica","book":{"n":95,"frases":[1],"notas":false,"reveal":false},"min":0.383,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 95\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · El paradigma tecnocrático y el poder digital\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> Cuando un poder de tal magnitud se concentra en pocas manos, tiende a hacerse opaco y a eludir el control público, y crece el riesgo de un desarrollo distorsionado que provoca nuevas dependencias, exclusiones, manipulaciones y desigualdades.\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8bza09","type":"enciclica","book":{"n":96,"frases":[0,1],"notas":false,"reveal":false},"min":1,"minAuto":true,"post":"Principios de la Doctrina social de la Iglesia: \ncf. Compendio de la Doctrina Social de la Iglesia *Capítulo Tercero*, n.º 160 a 208; \ncf. Magnifica Humanitas *Capitulo Segundo: Fundamentos y principios de la Doctrina social de la Iglesia*, n° 59 a 81.","html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 96\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · El paradigma tecnocrático y el poder digital\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>Frente a esta concentración de poder en el mundo digital, los grandes principios de la Doctrina social se convierten en criterios para juzgar y discernir el nuevo escenario: la dignidad inalienable de la persona, el bien común, el destino universal de los bienes, la subsidiariedad, la solidaridad y la justicia social. Estos principios exigen verificar si el poder de las infraestructuras digitales y de los algoritmos favorece realmente la participación y la responsabilidad, protege a los más vulnerables, asegura un acceso equitativo a las oportunidades y se ordena al bien de todos. \u003cspan class=\"bk-gap\">[…]\u003c/span>\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8bc29n","type":"enciclica","book":{"n":97,"frases":[1],"notas":false,"reveal":false},"min":0.45,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 97\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · La inteligencia artificial\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> Me limito a recordar algunos elementos esenciales para un discernimiento moral y social que proteja el primado de la persona, con el fin de que sea siempre la inteligencia humana, con su conciencia y su libertad, la que guíe las innovaciones técnicas y establezca con responsabilidad su uso y sus límites.\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8bty0l","type":"enciclica","book":{"n":98,"frases":[0,1,4],"notas":false,"reveal":false},"min":0.65,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 98\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · La inteligencia artificial\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>Es oportuno anteponer dos consideraciones: la primera es que cualquier afirmación sobre la IA corre el riesgo de quedar obsoleta en poco tiempo, dada la impresionante velocidad de desarrollo de estos sistemas. En segundo lugar, todos nosotros, incluidos quienes los diseñan, sabemos muy poco sobre su funcionamiento efectivo. \u003cspan class=\"bk-gap\">[…]\u003c/span> Se manifiesta, por tanto, la urgencia de un doble compromiso: por una parte, una profundización de la investigación científica; por otra, un ejercicio de discernimiento moral y espiritual.\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8b85qp","type":"enciclica","book":{"n":99,"frases":[0,1,3,4,6,8],"notas":false,"reveal":false},"min":1,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 99\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · La inteligencia artificial\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>No es posible dar una definición única y completa de la IA. Lo que podemos decir es que hay que evitar el equívoco de equiparar esta “inteligencia” a la humana. \u003cspan class=\"bk-gap\">[…]\u003c/span> Al hacerlo, a menudo la superan en velocidad y amplitud de cálculo, ofreciendo beneficios concretos en numerosos campos. Y, sin embargo, esta potencia sigue ligada exclusivamente al tratamiento de datos: las denominadas inteligencias artificiales no viven una experiencia, no poseen un cuerpo, no pasan por la alegría y el dolor, no maduran en las relaciones ni conocen desde dentro lo que significan el amor, el trabajo, la amistad y la responsabilidad. \u003cspan class=\"bk-gap\">[…]\u003c/span> Pueden imitar lenguajes, comportamientos, valoraciones; pueden simular empatía o comprensión, pero no conocen lo que producen, porque no residen en el horizonte afectivo, relacional y espiritual en el que el ser humano se vuelve sabio. \u003cspan class=\"bk-gap\">[…]\u003c/span> No es la experiencia de quien se deja modelar por la vida y crece en el tiempo por medio de decisiones, errores, perdón y fidelidad; es más bien una adaptación estadística a partir de datos y retroalimentaciones, que puede ser muy eficaz, pero no implica un crecimiento interior.\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8batkq","type":"enciclica","book":{"n":100,"frases":[1,2,3,4,5,7],"notas":false,"reveal":false},"min":2,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 100\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · Una ayuda valiosa que requiere atención\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> En los últimos años su uso privado ha crecido notablemente, y desde distintos ámbitos se reflexiona sobre las oportunidades y los riesgos vinculados a su rápida difusión. En el uso personal, tres aspectos, en particular, deben ser tenidos en especial consideración: la facilidad para lograr el resultado, la impresión de objetividad y la simulación de la comunicación humana. La velocidad y la sencillez con la que es posible obtener indicaciones, elaboraciones complejas, contenidos mediáticos y formas de asistencia concreta simplifican nuestras vidas, pero también pueden acostumbrarnos a delegar demasiado y a buscar respuestas rápidas, debilitando el juicio personal y la creatividad. La impresión de objetividad que las respuestas y las propuestas de estos sistemas pueden suscitar, corre el riesgo de hacernos olvidar que estas reflejan los parámetros culturales de quienes las han proyectado y adiestrado, con todas sus virtudes y defectos. La imitación artificial de una comunicación humana positiva —palabras de consejo, de empatía, de amistad, de amor— puede resultar gratificante e incluso útil, pero en usuarios poco conscientes puede inducir a engaño y dar la falsa impresión de estar en una relación con un auténtico sujeto personal. \u003cspan class=\"bk-gap\">[…]\u003c/span> La imitación artificial de la relación de cuidado o de acompañamiento puede ser peligrosa cuando se introduce en un contexto pobre de relaciones y de afectos reales; entonces el riesgo no es tanto que una persona crea que está hablando con otra persona, sino que pierda el deseo mismo de buscar realmente al otro.\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8bmz4t","type":"enciclica","book":{"n":101,"frases":[1,2,4],"notas":false,"reveal":false},"min":1,"minAuto":true,"post":"Casa común: se refiere a la Tierra como un hogar compartido por toda la humanidad y el conjunto de la creación reconociendo la profunda interdependencia entre el medioambiente y la vida de los seres humanos. Un término popularizado globalmente por el Papa Francisco en su encíclica Laudato si' de 2015.","html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 101\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · Una ayuda valiosa que requiere atención\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> Las ventajas en términos de eficiencia y las potencialidades de mejora de algunos servicios son evidentes; sin embargo, una adopción rápida y acrítica nos expone a diversos riesgos, como el de subestimar el impacto ambiental. Los actuales sistemas de IA requieren grandes cantidades de energía y agua, inciden de manera significativa en las emisiones de anhídrido carbónico y consumen recursos de manera intensiva. \u003cspan class=\"bk-gap\">[…]\u003c/span> Por eso es esencial desarrollar soluciones tecnológicas más sostenibles para reducir el impacto sobre el medioambiente y cuidar nuestra Casa común.\u003csup class=\"bk-fn\" data-fn=\"124\">124\u003c/sup>\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8bs1v8","type":"enciclica","book":{"n":102,"frases":[1,2],"notas":false,"reveal":false},"min":0.95,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 102\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · Responsabilidad, transparencia y gobernanza de la IA\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> Las decisiones delicadas que repercuten en el trabajo, el acceso a créditos y a otros servicios, y la reputación de las personas, corren el riesgo de ser confiadas completamente a sistemas automatizados que no conocen «la compasión, la misericordia, el perdón y, sobre todo, la apertura a la esperanza de cambio en el individuo»,\u003csup class=\"bk-fn\" data-fn=\"125\">125\u003c/sup> pudiendo así producir nuevas formas de descarte. Puede haber usos evidentemente antihumanos, como la manipulación de la información o la violación de la privacidad, pero puede haber también un engaño menos evidente, cuando los sistemas de IA, presentándose como neutrales y objetivos, reflejan y refuerzan estereotipos o posiciones ideológicas de quienes los han diseñado y programado.\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8borxi","type":"enciclica","book":{"n":103,"frases":[1],"notas":false,"reveal":false},"min":0.417,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 103\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · Responsabilidad, transparencia y gobernanza de la IA\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> Lo que disminuye, en este proceso, no es sólo la empatía hacia el excluido, que puede ser imitada artificialmente, sino la responsabilidad política, porque el descarte de los débiles queda revestido de una neutralidad y una objetividad ante las cuales es imposible protestar. \u003cspan class=\"bk-gap\">[…]\u003c/span>\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8bme62","type":"enciclica","book":{"n":104,"frases":[2,3],"notas":false,"reveal":false},"min":0.85,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 104\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · Responsabilidad, transparencia y gobernanza de la IA\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> Si un sistema se concibe o emplea tratando algunas vidas como menos dignas, o las excluye sin posibilidad de apelación, no es un simple instrumento que “hay que usar correctamente”; introduce ya un criterio que contradice la dignidad inalienable de la persona. Por eso, el discernimiento ético no se puede limitar a preguntarse si usamos un determinado sistema para un fin bueno o malo, sino que debe interrogarse también sobre el modo en el que está diseñado y qué idea de persona y de sociedad queda inscrita en los datos y en los modelos que lo guían.\u003csup class=\"bk-fn\" data-fn=\"126\">126\u003c/sup>\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8bn5wt","type":"enciclica","book":{"n":105,"frases":[0,2],"notas":false,"reveal":false},"min":0.7,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 105\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · Responsabilidad, transparencia y gobernanza de la IA\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>Para que la IA respete la dignidad humana y sirva realmente al bien común, es esencial que las responsabilidades estén claras en todas las etapas: desde quienes diseñan y programan los sistemas hasta quienes los utilizan y quienes resuelven confiarles las decisiones concretas. \u003cspan class=\"bk-gap\">[…]\u003c/span> Es aquí donde se vuelve decisivo lo que llamamos “responsabilidad”(accountability): la posibilidad de identificar quién debe “rendir cuentas” de las decisiones, motivarlas, controlarlas y, cuando es necesario, cuestionarlas y remediar los daños que derivan de ellas.\u003csup class=\"bk-fn\" data-fn=\"127\">127\u003c/sup>\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8btwzm","type":"enciclica","book":{"n":106,"frases":[1],"notas":false,"reveal":false},"min":0.383,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 106\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · Responsabilidad, transparencia y gobernanza de la IA\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> Esta exigencia es aún más urgente porque existe a menudo un desequilibrio entre la velocidad del desarrollo tecnológico y el ritmo al que maduran la conciencia, las normas, los controles y las instituciones capaces de gobernar sus efectos. \u003cspan class=\"bk-gap\">[…]\u003c/span>\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8bdh98","type":"enciclica","book":{"n":107,"frases":[2,3],"notas":false,"reveal":false},"min":0.417,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 107\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · Responsabilidad, transparencia y gobernanza de la IA\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> No serviría de nada una IA más moral, si esta moral es decidida por unos pocos. Se necesita una política más presente, capaz de ralentizar donde todo acelera y de proteger los espacios en los que las comunidades pueden seguir participando e interrogándose.\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8bazo5","type":"enciclica","book":{"n":108,"frases":[1,2,5],"notas":false,"reveal":false},"min":2,"minAuto":true,"post":"**Comunidades y cuerpos intermedios:** Son agrupaciones sociales intermedias (como asociaciones, familias, sindicatos o cooperativas) situadas entre el individuo y el Estado, fundamentales para ejercer la participación, la subsidiariedad y la vigilancia frente a poderes centralizados.\ncf. Compendio de la Doctrina Social de la Iglesia *Capítulo Tercero*, n.º 185 a 187; \ncf. Magnifica Humanitas *Capitulo Segundo: Fundamentos y principios de la Doctrina social de la Iglesia*, n° 68 a 72.","html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 108\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · Responsabilidad, transparencia y gobernanza de la IA\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> A la luz del bien común y del destino universal de los bienes, este fenómeno suscita seria preocupación: pequeños grupos muy influyentes pueden orientar informaciones y consumos, condicionar procesos democráticos e incidir en las dinámicas económicas en beneficio propio, contradiciendo la justicia social y la solidaridad entre los pueblos. Por eso es indispensable que el uso de la IA —sobre todo cuando involucra bienes públicos y derechos fundamentales— esté acompañado de criterios claros y controles efectivos, inspirados en la participación y la subsidiariedad; las comunidades y los cuerpos intermedios no pueden ser reducidos a destinatarios de decisiones tomadas en otros lugares, sino que deben poder contribuir al discernimiento y a la vigilancia. \u003cspan class=\"bk-gap\">[…]\u003c/span> Hace falta una creatividad capaz de gestionarlos como uno de los bienes comunes o colectivos, en la lógica del compartir, como ya sugería san Juan Pablo II a propósito de los bienes colectivos.\u003csup class=\"bk-fn\" data-fn=\"128\">128\u003c/sup>\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8bm6px","type":"enciclica","book":{"n":109,"frases":null,"notas":false,"reveal":false},"min":1,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 109\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · Responsabilidad, transparencia y gobernanza de la IA\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>Los principios de la Doctrina social nos ayudan a leer esta nueva realidad. En un mundo donde pocos sujetos concentran datos, capital informático y capacidad normativa, hablar de bien común significa desenmascarar esta nueva asimetría epistémica, económica y política, nombrando los nuevos monopolios de la IA. Hablar de destino universal de los bienes significa encontrar modos de asegurar el acceso universal a las tecnologías y a la formación. Hablar de subsidiariedad exige proteger la capacidad de las comunidades de decidir y corregir, sin relegar su intervención a una vigilancia posterior, una vez que los estándares hayan sido establecidos en otro sitio. Hablar de solidaridad obliga a reconocer el trabajo invisible, a menudo explotado, que alimenta los modelos algorítmicos. Hablar de justicia pide cuestionar las geografías del poder que definen quién puede programar los modelos y quién es sólo objeto de esa programación, y reconocer que la justicia social no es sólo un objetivo que hay que tutelar después de la adopción de las tecnologías, sino una condición que se debe poner en práctica desde su diseño.\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8bka4r","type":"enciclica","book":{"n":110,"frases":[1,2,3,4,8],"notas":false,"reveal":false},"min":0.767,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 110\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · Responsabilidad, transparencia y gobernanza de la IA\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> Desarmar la IA significa sustraerla a la lógica de la competencia armamentística, que hoy ya no es sólo militar sino económica y cognitiva. Es la carrera por el algoritmo más eficaz y por el banco de datos más amplio, para consolidar una ventaja geopolítica o comercial sobre todos los demás. Desarmar quiere decir romper esta equivalencia entre poder tecnológico y derecho a gobernar. Desarmar no significa renunciar a la tecnología, sino impedirle el dominio sobre lo humano. \u003cspan class=\"bk-gap\">[…]\u003c/span> Por eso, no basta regularla; es necesario desarmarla y hacerla acogedora.\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8bs2rx","type":"enciclica","book":{"n":111,"frases":[3],"notas":false,"reveal":false},"min":0.533,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 111\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · Responsabilidad, transparencia y gobernanza de la IA\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> Así como el autor de una obra artística o literaria está obligado a considerar los valores que manifiesta, así también ellos están llamados a tratar con la debida seriedad los valores que infunden en sus proyectos: con transparencia, con responsabilidad hacia las comunidades involucradas y con atención a verificar que lo que se cultiva sea realmente un bien.\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8b6qqf","type":"enciclica","book":{"n":112,"frases":[0,2],"notas":false,"reveal":false},"min":0.55,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 112\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · Lo que no podemos perder\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>Después de haber recordado las cuestiones de la responsabilidad y del gobierno de la IA, es necesario volver a nuestro tema central: qué significa custodiar lo humano. \u003cspan class=\"bk-gap\">[…]\u003c/span> Cuando la eficiencia se vuelve medida de valor, el ser humano es tentado a considerarse como un proyecto que debe optimizarse más que como una criatura llamada a la relación y a la comunión.\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8br89h","type":"enciclica","book":{"n":113,"frases":[1,2,3,5],"notas":false,"reveal":false},"min":0.7,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 113\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · Lo que no podemos perder\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> En efecto, no es sólo la carencia lo que genera desorden. También aquello que crece sin medida puede convertirse en una forma de pobreza. En un ecosistema, la armonía se rompe cuando una sola especie prolifera en detrimento de las demás; en lo humano, ocurre lo mismo cuando una facultad pretende ser la medida de todo. \u003cspan class=\"bk-gap\">[…]\u003c/span> El poder técnico, si no se equilibra, no nos hace más capaces; nos aísla, y nos expone aún más a lógicas de dominio y de exclusión. \u003cspan class=\"bk-gap\">[…]\u003c/span>\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8bra8t","type":"enciclica","book":{"n":114,"frases":[1,3],"notas":false,"reveal":false},"min":0.617,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 114\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · Lo que no podemos perder\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> La capacidad de saber cuidarnos los unos a los otros es una dimensión importante de nuestro ser humano. \u003cspan class=\"bk-gap\">[…]\u003c/span> Leer cuentos a un niño, acompañar a una persona anciana o hacer acogedor un espacio, son gestos que se viven en un ambiente familiar, pero que nos ayudan a aprender y a interiorizar la importancia del cuidado a nivel social y nos entrenan para reconocer al otro como persona digna de atención. \u003cspan class=\"bk-gap\">[…]\u003c/span>\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8ba3an","type":"enciclica","book":{"n":115,"frases":null,"notas":false,"reveal":false},"min":0.817,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 115\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · Narrativas de fondo: transhumanismo y posthumanismo\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>Tratando de hacer emerger los presupuestos culturales que acompañan la revolución digital en curso, quisiera ahora dirigir la atención a algunas corrientes que interpretan el progreso como una superación del ser humano y que podemos clasificar con los nombres de transhumanismo y posthumanismo. Estas corrientes constituyen el trasfondo ideológico que reside en algunos centros de poder tecnológico y colonizan el imaginario colectivo de forma simplificada, especialmente en los medios y en las redes sociales, induciendo el entusiasmo por las nuevas tecnologías con una visión futurista de “humanidad potenciada” o de “hombre hibridado” con la máquina.\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8bsv6f","type":"enciclica","book":{"n":116,"frases":[1,2,3],"notas":false,"reveal":false},"min":0.983,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 116\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · Narrativas de fondo: transhumanismo y posthumanismo\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> Pueden ser comparadas con un archipiélago de islas conceptuales diferentes, pero unidas por el mismo mar de presupuestos: la centralidad de la técnica y el sueño de superar los límites de la condición humana. En general, el transhumanismo imagina una potenciación del ser humano por medio de las tecnologías —biomedicina, ingeniería del cuerpo, dispositivos, algoritmos—, con la aspiración de incrementar el rendimiento y las capacidades. El posthumanismo, sobre todo en sus versiones más radicales, va más allá: critica el antropocentrismo y plantea una forma de hibridación entre el ser humano, la máquina y el ambiente, hasta imaginar que atravesará el umbral en el que la humanidad se superará a sí misma, entrando en una nueva etapa evolutiva. \u003cspan class=\"bk-gap\">[…]\u003c/span>\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8bdgqo","type":"enciclica","book":{"n":117,"frases":[3],"notas":false,"reveal":false},"min":0.367,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 117\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · Narrativas de fondo: transhumanismo y posthumanismo\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> Por ello es necesario distinguir con claridad: una cosa es integrar las tecnologías en una visión humana y relacional; otra es dejarse guiar por un imaginario que desprecia el límite y promete una “salvación” puramente técnica.\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8b2lm5","type":"enciclica","book":{"n":118,"frases":[1,2,4],"notas":false,"reveal":false},"min":1,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 118\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · El límite, el corazón, la grandeza del ser humano\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> Todo lo que representa un “límite” —incapacidad, enfermedad, ancianidad, sufrimiento, vulnerabilidad— tiende a ser leído principalmente como un defecto que hay que corregir, más que como un espacio en el que el ser humano madura y se abre a la relación. En cambio, debemos recordar que el ser humano no florece a pesar del límite, sino a menudo a través del límite. \u003cspan class=\"bk-gap\">[…]\u003c/span> Si por un lado es necesario tratar de eliminar el sufrimiento que marca la vida humana, por el otro, es sabio reconocer nuestra finitud constitutiva, sabiendo que «la experiencia religiosa, en particular la fe cristiana, proponen habitar sin simplificaciones esta ambivalencia entre la grandeza y el límite de lo humano, interpretándola a la luz de la relación originaria y fundante con Dios».\u003csup class=\"bk-fn\" data-fn=\"131\">131\u003c/sup>\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8ccphk","type":"enciclica","book":{"n":119,"frases":[0,2],"notas":false,"reveal":false},"min":0.6,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 119\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · El límite, el corazón, la grandeza del ser humano\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>Es precisamente en nuestro ser limitados donde encuentran lugar la compasión, la sincera preocupación ante las necesidades de los demás, la generosidad que sorprende incluso en medio de la oscuridad y el fracaso, la experiencia espiritual y la adoración a Dios. \u003cspan class=\"bk-gap\">[…]\u003c/span> Misteriosamente, es en estos casos que podemos encontrar una nueva sabiduría, palpar el afecto de las personas y experimentar la presencia del Señor.\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8cv3c2","type":"enciclica","book":{"n":120,"frases":[2,4],"notas":false,"reveal":false},"min":0.667,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 120\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · El límite, el corazón, la grandeza del ser humano\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> Quien ama y desea, en efecto, no puede evitar atravesar la prueba y el sufrimiento, y por eso, a lo largo de los años conservamos en nosotros enseñanzas que quedan marcadas como cicatrices, memoria del camino realizado entre libertad y caídas, sueños y decepciones. \u003cspan class=\"bk-gap\">[…]\u003c/span> Renunciar a esta aventura, al mismo tiempo dramática y espléndida, en nombre de una presunta superación de todo límite podría ser cualquier cosa, pero no significaría ser humanos.\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8cvcya","type":"enciclica","book":{"n":121,"frases":[3],"notas":false,"reveal":false},"min":0.667,"minAuto":true,"post":"**Viktor Frankl:** Neurólogo, psiquiatra y pensador austríaco de origen judío, sobreviviente del Holocausto.","html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 121\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · El límite, el corazón, la grandeza del ser humano\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> Viktor Frankl decía justamente que en los momentos de horror «hemos llegado a conocer al hombre en estado puro: el hombre es ese ser capaz de inventar las cámaras de gas de Auschwitz, pero también es el ser que ha entrado en esas mismas cámaras con la cabeza erguida y el Padrenuestro o el Shemá Israel en los labios».\u003csup class=\"bk-fn\" data-fn=\"133\">133\u003c/sup>\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8cep4p","type":"enciclica","book":{"n":122,"frases":[0,1,2,3],"notas":false,"reveal":false},"min":0.8,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 122\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · El límite, el corazón, la grandeza del ser humano\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>La finitud, cuando se acoge en la verdad, no empobrece al ser humano, sino que lo abre al reconocimiento del rostro de Dios y del otro. Por lo demás, precisamente porque experimenta el límite —la vulnerabilidad, el dolor, el fracaso— puede reconocer la dignidad propia y ajena como inviolable. Y en la misma experiencia del límite, sigue siendo capaz de intuir una fraternidad más grande que él mismo y de reconocer la injusticia como escándalo. La cultura y el arte, cuando son auténticos, custodian esta chispa, impidiendo la normalización del mal. \u003cspan class=\"bk-gap\">[…]\u003c/span>\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8ch7g2","type":"enciclica","book":{"n":123,"frases":[4,5],"notas":false,"reveal":false},"min":0.533,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 123\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · El límite, el corazón, la grandeza del ser humano\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> Las conquistas morales tienen casi siempre el rostro de un camino largo y fatigoso, marcado también por contratiempos; pensemos en los procesos de paz interrumpidos o en la lenta aplicación de los compromisos ambientales. Aun así, precisamente la fragilidad de estos resultados demuestra cuán preciosa es la responsabilidad de quienes los inician y los sostienen.\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8cwaz5","type":"enciclica","book":{"n":126,"frases":null,"notas":false,"reveal":false},"min":1,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 126\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · El límite, el corazón, la grandeza del ser humano\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>Precisamente esta convergencia de instituciones justas, testimonios creíbles y fidelidades cotidianas mantiene viva la esperanza e indica una dirección: hacer que la técnica crezca sin que se repliegue el corazón. Por eso la humanidad —magnífica y herida— no debe ser sustituida ni superada; puede acoger los progresos de la técnica para aliviar los sufrimientos y abrir posibilidades nuevas, siempre que no reniegue de aquello que la hace ser ella misma, es decir, la capacidad de relación y de amor. A este punto se impone una pregunta decisiva: si existe un auténtico “más que humano”, ¿dónde se encuentra? La fe cristiana responde indicando una plenitud que no deriva de una divinización tecnológica, sino de aquella que produce la gracia de Dios, recibida en Cristo.\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8cus3v","type":"enciclica","book":{"n":127,"frases":[1,5,7],"notas":false,"reveal":false},"min":0.867,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 127\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · El verdadero “más que humano”: gracia y humanismo cristiano\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> Desde hace siglos, la tradición cristiana afirma que el ser humano no está encerrado en los límites de la propia naturaleza, sino que está llamado a trascenderse a sí mismo; no para huir de la realidad o despreciar el límite, sino para realizarse en el amor. \u003cspan class=\"bk-gap\">[…]\u003c/span> Sin embargo, es posible ser introducidos en el seno de esa vida inextinguible, incluso mientras caminamos entre los límites de este mundo. \u003cspan class=\"bk-gap\">[…]\u003c/span> Así se realiza la re-creación de lo humano: «El que vive en Cristo es una nueva criatura: lo antiguo ha desaparecido, un ser nuevo se ha hecho presente» (2 Co 5,17).\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8cpcg9","type":"enciclica","book":{"n":128,"frases":[1,4,5],"notas":false,"reveal":false},"min":0.783,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 128\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · El verdadero “más que humano”: gracia y humanismo cristiano\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>\u003cspan class=\"bk-gap\">[…]\u003c/span> Por el contrario, como explicaba el Papa Francisco, «llegamos a ser plenamente humanos cuando somos más que humanos, cuando le permitimos a Dios que nos lleve más allá de nosotros mismos para alcanzar nuestro ser más verdadero».\u003csup class=\"bk-fn\" data-fn=\"137\">137\u003c/sup> \u003cspan class=\"bk-gap\">[…]\u003c/span> Para un algoritmo, el error es algo que hay que corregir; para una persona, puede ser el inicio de un cambio profundo. El futuro de una persona no es calculable, sino que está confiado a su libertad ―elevada por la inagotable gracia divina― y a las relaciones que cultiva.\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8c0g43","type":"enciclica","book":{"n":129,"frases":[0,2,3],"notas":false,"reveal":false},"min":0.933,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 129\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · Dos ciudades y dos amores\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>El humanismo cristiano no rechaza la ciencia ni la técnica, sino que las asume con gratitud y realismo, y las sitúa “con los pies en la tierra” dentro de una vocación más alta. \u003cspan class=\"bk-gap\">[…]\u003c/span> En este sentido, la verdadera alternativa no está entre el entusiasmo y el miedo, sino entre dos modos de construir: un progreso que sirve a la persona y a los pueblos, o un progreso que los doblega a lógicas de poder. Al final, la pregunta decisiva sigue siendo la indicada por san Juan Pablo II: la IA, ¿«hace la vida del hombre sobre la tierra, en todos sus aspectos, “más humana”?; ¿la hace más “digna del hombre”?».\u003csup class=\"bk-fn\" data-fn=\"138\">138\u003c/sup> \u003cspan class=\"bk-gap\">[…]\u003c/span>\u003c/p>\u003c/div>\u003c/div>"},{"id":"smv79hm8covo7","type":"enciclica","book":{"n":130,"frases":[0,2,6],"notas":false,"reveal":false},"min":0.6,"minAuto":true,"html":"\u003cdiv class=\"bk bk-mh\">\u003cspan class=\"bk-tag\">Magnifica Humanitas · 130\u003c/span>\u003cdiv class=\"bk-kick\">Capítulo tercero · Dos ciudades y dos amores\u003c/div>\u003cdiv class=\"bk-c\">\u003cp>Interrogarnos sobre esta alternativa de progreso y sobre nuestro modo de interpretarlo y vivirlo significa siempre, a fin de cuentas, examinar también nuestro corazón. \u003cspan class=\"bk-gap\">[…]\u003c/span> Es un amor que nos guía: aquello que amamos realmente, como individuos y como sociedad, orienta nuestra vida y nuestras acciones. \u003cspan class=\"bk-gap\">[…]\u003c/span> El tiempo de la IA no escapa a esta regla: la construcción de Babel o la de Jerusalén comienza en cada uno de nosotros.\u003c/p>\u003c/div>\u003c/div>"}],"created":1791931071106,"updated":1791934402734},"pub":true}</script>
+<script>
+(function(){
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  // texto propio: se respeta el renglón; **negrita** y *cursiva*
+  function fmt(t){
+    return esc(t || '')
+      .replace(/\*\*([^*\n][\s\S]*?)\*\*/g, '<b>$1</b>')
+      .replace(/(^|[^*\w])\*(?![\s*])([^*\n]+?)\*(?!\*)/g, '$1<i>$2</i>');
+  }
+  const has = t => t != null && String(t).trim() !== '';
+  function zone(t, align, cls){
+    if (!has(t)) return '';
+    const st = align && align !== 'left' ? ` style="text-align:${align === 'justify' ? 'justify;hyphens:auto' : align}"` : '';
+    return `<div class="pl-txt ${cls||''}"${st}>${fmt(t)}</div>`;
+  }
+  function ytInfo(u){
+    const m = String(u).match(/(?:youtube(?:-nocookie)?\.com\/(?:watch\?(?:[^#]*&)?v=|embed\/|shorts\/|live\/|v\/)|youtu\.be\/)([\w-]{11})/);
+    if (!m) return null;
+    const t = String(u).match(/[?&#](?:t|start)=(\d+(?:h)?\d*(?:m)?\d*s?)/);
+    let start = 0;
+    if (t) { const v = t[1]; if (/^\d+$/.test(v)) start = +v; else { const h=/(\d+)h/.exec(v), mi=/(\d+)m/.exec(v), s=/(\d+)s/.exec(v); start = (h?+h[1]*3600:0)+(mi?+mi[1]*60:0)+(s?+s[1]:0); } }
+    return {id:m[1], start};
+  }
+  const driveId = u => (String(u).match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:[^#]*&)?id=)([\w-]{10,})/) || [])[1];
+  function videoHtml(url, src){
+    if (src) return `<video controls preload="metadata" playsinline src="${esc(src)}"></video>`;
+    if (!has(url)) return '';
+    const yt = ytInfo(url);
+    if (yt) return `<div class="pl-frame"><iframe src="https://www.youtube-nocookie.com/embed/${yt.id}?rel=0${yt.start?'&start='+yt.start:''}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>`;
+    const vm = String(url).match(/vimeo\.com\/(?:video\/)?(\d+)/);
+    if (vm) return `<div class="pl-frame"><iframe src="https://player.vimeo.com/video/${vm[1]}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>`;
+    const dr = driveId(url);
+    if (dr) return `<div class="pl-frame"><iframe src="https://drive.google.com/file/d/${dr}/preview" allow="autoplay; fullscreen" allowfullscreen></iframe></div>`;
+    return `<video controls preload="metadata" playsinline src="${esc(url)}"></video>`;
+  }
+  function imgUrl(u){ const d = driveId(u); return d ? `https://drive.google.com/thumbnail?id=${d}&sz=w2000` : u; }
+  function pdfUrl(u){ const d = driveId(u); return d ? `https://drive.google.com/file/d/${d}/preview` : u; }
+  const KIND = {texto:'', pregunta:'', proposito:'Propósito', youcat:'', yconf:'', enciclica:'', estilo:'', libro:'', imagen:'', video:'', pdf:'', audio:'', enlace:''};
+
+  // ícono del cuadro destacado (paso «Pregunta»): símbolo, color y nombre
+  const QICONS = {
+    pregunta:{ch:'?', c:'blue', l:'Pregunta'}, aviso:{ch:'!', c:'warm', l:'Aviso'}, info:{ch:'i', c:'blue', l:'Información'},
+    idea:{ch:'💡', c:'warm', l:'Idea'}, oracion:{ch:'✝', c:'purple', l:'Oración'}, cita:{ch:'❝', c:'purple', l:'Cita'},
+    tarea:{ch:'✎', c:'green', l:'Tarea'}, tiempo:{ch:'⏱', c:'green', l:'Tiempo'}, objetivo:{ch:'◎', c:'green', l:'Objetivo'},
+    corazon:{ch:'♥', c:'red', l:'Corazón'}, estrella:{ch:'★', c:'warm', l:'Destacado'}, importante:{ch:'‼', c:'red', l:'Importante'},
+    ninguno:{ch:'', c:'none', l:'Sin ícono'}
+  };
+  // HTML de un paso (lo usan el presentador y el guion para imprimir)
+  function stepHtml(s, ctx){
+    ctx = ctx || {};
+    const src = s.file && ctx.src ? ctx.src(s.file) : '';
+    const al = s.align, pr = ctx.print;
+    let h = '';
+    // paso que depende de una opción elegida antes: en las versiones sin elección (papel, sin JavaScript) se avisa para quién es
+    if (pr || ctx.flat) for (const c of [s.gcond, s.cond]) if (c && c.step) h += `<div class="pl-cond">Si elegiste «${esc(c.val)}»</div>`;
+    if (has(s.title)) h += `<h2>${fmt(s.title)}</h2>`;
+    else if (KIND[s.type]) h += `<div class="pl-kind">${KIND[s.type]}</div>`;
+    const pre = zone(s.pre, al), post = zone(s.post, al);
+    switch (s.type) {
+      case 'texto': h += zone(s.body, al) || (pr ? '' : ''); break;
+      case 'pregunta': {
+        const ic = QICONS[s.icon] || QICONS.pregunta;
+        h += pre + (has(s.question) ? `<div class="pl-q ic-${ic.c}" data-ic="${esc(ic.ch)}">${fmt(s.question)}</div>` : '') + askHtml(s, ctx) + post; break;
+      }
+      case 'proposito': {
+        const ans = (ctx.answers && ctx.answers[s.id]) || '';
+        h += `<div class="pl-prop">${zone(s.body || 'Mi propósito:', al)}` +
+          (pr ? `<div style="min-height:5em;border-bottom:1px solid #999"></div>` :
+          `<textarea data-ans="${esc(s.id)}" placeholder="Escribí acá tu propósito…">${esc(ans)}</textarea><div class="saved" data-saved="${esc(s.id)}"></div>`) + `</div>`;
+        break;
+      }
+      case 'imagen': {
+        const u = src || imgUrl(s.url || '');
+        h += pre + (has(u) ? `<div class="pl-media"><img src="${esc(u)}" alt="${esc(s.title || (s.file && s.file.name) || 'Imagen')}" data-zoom></div>` : '') + post;
+        break;
+      }
+      case 'video':
+        h += pre;
+        if (pr) h += `<div class="pl-missing">🎬 Video: ${esc(s.file ? s.file.name : s.url)}</div>`;
+        else if (src || has(s.url)) h += `<div class="pl-media">${videoHtml(s.url, src)}</div>`;
+        h += post; break;
+      case 'audio':
+        h += pre;
+        if (pr) h += `<div class="pl-missing">🔊 Audio: ${esc(s.file ? s.file.name : s.url)}</div>`;
+        else if (src || has(s.url)) h += `<div class="pl-media"><audio controls preload="metadata" src="${esc(src || s.url)}"></audio></div>`;
+        h += post; break;
+      case 'pdf': {
+        const u = src || pdfUrl(s.url || '');
+        h += pre;
+        if (pr) h += `<div class="pl-missing">📄 PDF: ${esc(s.file ? s.file.name : s.url)}</div>`;
+        else if (has(u)) h += `<div class="pl-media"><iframe class="pl-pdf" src="${esc(u)}" title="PDF"></iframe><a class="pl-open" href="${esc(u)}" target="_blank" rel="noopener"${s.file ? ` download="${esc(s.file.name)}"` : ''}>📄 Abrir el PDF${s.file ? ' (' + esc(s.file.name) + ')' : ''}</a></div>`;
+        h += post; break;
+      }
+      case 'enlace':
+        h += pre + (has(s.url) ? `<a class="pl-link" href="${esc(s.url)}" target="_blank" rel="noopener">🔗 <span><b>${esc(s.body || s.url)}</b>${has(s.body) ? `<br><small>${esc(s.url)}</small>` : ''}</span></a>` : '') + post;
+        break;
+      case 'youcat': case 'yconf': case 'enciclica': case 'estilo': case 'libro':
+        h += pre + (ctx.book ? ctx.book(s) : (s.html || '<div class="pl-missing">Texto no disponible</div>')) + post;
+        break;
+    }
+    if (ctx.notes && has(s.nota)) h += `<div class="pl-note"><b>Nota para el disertante</b>${fmt(s.nota)}</div>`;
+    return h;
+  }
+  // paso «Pregunta»: opciones para marcar y caja para escribir (guardada en el dispositivo, o privada: no se guarda)
+  const optList = s => String(s.opciones || '').split('\n').map(x => x.trim()).filter(Boolean);
+  function askHtml(s, ctx){
+    const A = ctx.answers || {}, ops = optList(s);
+    let h = '';
+    if (ops.length) {
+      const sel = A[s.id + ':o'] || [];
+      if (s.unica && !ctx.print && !ctx.flat) h += `<div class="pl-unica">Elegí una opción</div>`;
+      h += `<div class="pl-opts">` + ops.map(o => ctx.print || ctx.flat ? `<span class="pl-opt">${s.unica ? '○' : '☐'} ${esc(o)}</span>`
+        : `<button type="button" class="pl-opt${sel.includes(o) ? ' on' : ''}" data-opt="${esc(s.id)}" data-v="${esc(o)}">${esc(o)}</button>`).join('') + `</div>`;
+    }
+    const w = s.write || (ctx.hoja ? 'guardar' : '');
+    if (w) {
+      const ph = has(s.writeHint) ? s.writeHint : 'Escribí acá…';
+      if (ctx.print) h += `<div style="min-height:5em;border-bottom:1px solid #999"></div>`;
+      else if (w === 'privado') h += `<div class="pl-ans priv"><textarea data-priv placeholder="${esc(ph)}"></textarea><div class="pl-priv">🔒 Esto no se guarda en ningún lado: cuando pasás de paso, se borra. Nadie lo va a leer.</div></div>`;
+      else h += `<div class="pl-ans"><textarea data-ans="${esc(s.id)}" placeholder="${esc(ph)}">${esc(A[s.id] || '')}</textarea><div class="saved" data-saved="${esc(s.id)}"></div></div>`;
+    }
+    return h;
+  }
+  // ¿el espacio tiene lugares para escribir o marcar? (para el aviso de privacidad de la portada)
+  const writes = e => e.steps.some(s => s.type === 'proposito' || (s.type === 'pregunta' && (s.write === 'guardar' || optList(s).length)));
+  // preguntas de la «hoja de preguntas» (las que sirven para anotar: no los avisos ni las citas)
+  const hojaSteps = e => e.steps.filter(s => s.type === 'proposito' || (s.type === 'pregunta' && (!s.icon || s.icon === 'pregunta' || s.icon === 'tarea' || s.write || optList(s).length)));
+
+  let P = null;
+  const store = {
+    get(k){ try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch(e){ return null; } },
+    set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+  };
+  function prefs(){ return Object.assign({size:21, sizeM:18, dark:null}, store.get('enc-presentador') || {}); }
+  function savePrefs(p){ store.set('enc-presentador', p); }
+
+  function open(enc, opts){
+    close(true);
+    opts = opts || {};
+    const root = document.createElement('div');
+    root.className = 'pl';
+    root.setAttribute('role', 'dialog');
+    root.setAttribute('aria-label', enc.title || 'Espacio');
+    document.body.appendChild(root);
+    const prog = Object.assign({i:-1, answers:{}, muted:false}, store.get(opts.storageKey) || {});
+    P = {enc, opts, root, prog, i:-1, notes:!!opts.notes, music:null, seen:new Set(), warned:null, notesOpen:new Set()};
+    const pf = prefs();
+    if (pf.dark == null) pf.dark = !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) || !!opts.dark;
+    applyPrefs(pf);
+    if (!opts.embedded) document.documentElement.style.overflow = 'hidden';
+    root.addEventListener('click', onClick);
+    root.addEventListener('input', onInput);
+    document.addEventListener('keydown', onKey);
+    for (const t of ['mousemove', 'pointerdown', 'keydown', 'focusin']) document.addEventListener(t, poke, true);
+    poke();
+    document.addEventListener('fullscreenchange', renderTop);
+    if (typeof opts.start === 'number') go(opts.start); else render();
+  }
+  function applyPrefs(pf){
+    P.pf = pf;
+    P.root.classList.toggle('dark', !!pf.dark);
+    P.root.style.setProperty('--pl-size', pf.size + 'px');
+    P.root.style.setProperty('--pl-size-m', pf.sizeM + 'px');
+    savePrefs(pf);
+  }
+  function close(silent){
+    if (!P) return;
+    stopMusic();
+    if (document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+    document.removeEventListener('keydown', onKey);
+    for (const t of ['mousemove', 'pointerdown', 'keydown', 'focusin']) document.removeEventListener(t, poke, true);
+    clearTimeout(P.idleT);
+    document.removeEventListener('fullscreenchange', renderTop);
+    P.root.remove();
+    document.documentElement.style.overflow = '';
+    const cb = P.opts.onClose; P = null;
+    if (!silent && cb) cb();
+  }
+  const n = () => P.enc.steps.length;
+  // pasos con condición («solo si en el paso X eligieron Y»): mientras no se eligió nada, se muestran todos
+  function okCond(c){
+    if (!c || !c.step) return true;
+    const a = P.prog.answers[c.step + ':o'];
+    return !a || !a.length || a.includes(c.val);
+  }
+  const vis = s => !s || (okCond(s.cond) && okCond(s.gcond));
+  function stepFrom(i, d){ let j = i + d; while (j >= 0 && j < n() && !vis(P.enc.steps[j])) j += d; return j; }
+  function saveProg(){ if (P.opts.storageKey) store.set(P.opts.storageKey, {i:P.prog.i, answers:P.prog.answers, muted:P.prog.muted, done:P.prog.done}); }
+  function go(i){
+    i = Math.max(-1, Math.min(n(), i));
+    P.i = i;
+    if (i >= 0) { P.prog.i = Math.min(i, n() - 1); if (i === n()) P.prog.done = true; saveProg(); }
+    if (i >= 0) startMusic();
+    render();
+    const m = P.root.querySelector('.pl-main'); if (m) m.scrollTop = 0;
+  }
+  function renderTop(){
+    if (!P) return;
+    const t = P.root.querySelector('.pl-top'); if (!t) return;
+    const anyNotes = P.enc.steps.some(s => has(s.nota));
+    const curHasNote = P.i >= 0 && P.i < n() && has(P.enc.steps[P.i].nota);
+    const fs = !!document.fullscreenElement;
+    t.innerHTML = `<span class="ttl">${esc(P.enc.title || 'Espacio')}</span>` +
+      (P.musicSrc ? `<button class="pl-ib" data-a="mute" title="Música de fondo">${P.prog.muted ? '🔇' : '🎵'}</button>` : '') +
+      (anyNotes && P.opts.allowNotes !== false ? `<button class="pl-ib${noteHere() ? ' on' : (curHasNote ? ' has' : '')}" data-a="notes"${curHasNote ? '' : ' disabled'} title="${!curHasNote ? 'Este paso no tiene nota' : noteHere() ? 'Ocultar la nota de este paso' : 'Este paso tiene una nota para vos — tocá para verla'}">📝 Nota</button>` : '') +
+      `<button class="pl-ib" data-a="zout" title="Letra más chica">A−</button><button class="pl-ib" data-a="zin" title="Letra más grande">A+</button>` +
+      `<button class="pl-ib" data-a="dark" title="Modo noche">${P.pf.dark ? '☀' : '🌙'}</button>` +
+      (document.fullscreenEnabled ? `<button class="pl-ib" data-a="fs" title="${fs ? 'Salir de pantalla completa' : 'Pantalla completa'}">${fs ? '🗗' : '⛶'}</button>` : '') +
+      (P.opts.closable !== false ? `<button class="pl-ib" data-a="close" title="Cerrar (Esc)">✕</button>` : '');
+  }
+  function render(){
+    const i = P.i, N = n();
+    let body;
+    if (P.hoja) {
+      P.root.innerHTML = `<div class="pl-top"></div><div class="pl-main">${hojaHtml()}</div>`;
+      renderTop(); updateMusic(); return;
+    }
+    if (i < 0) body = coverHtml();
+    else if (i >= N) body = closingHtml();
+    else body = `<div class="pl-step${({pregunta:' pl-center', texto:' pl-vcenter'})[P.enc.steps[i].type] || ''}">${stepHtml(P.enc.steps[i], {src:P.opts.src, book:P.opts.book, answers:P.prog.answers, notes:noteHere()})}</div>`;
+    const V = P.enc.steps.filter(vis), pos = i >= N ? V.length : V.indexOf(P.enc.steps[i]) + 1, last = i < N && stepFrom(i, 1) >= N;
+    const pct = V.length ? Math.round(Math.max(0, Math.min(pos, V.length)) / V.length * 100) : 0;
+    const nav = i < 0 ? '' : `<div class="pl-nav">
+      <button class="pl-btn" data-a="prev">← Anterior</button>
+      <div class="pl-prog"><div class="pl-bar"><div style="width:${pct}%"></div></div><span class="pl-count">${i >= N ? 'Final' : pos + ' de ' + V.length}</span></div>
+      ${i >= N ? `<button class="pl-btn pri" data-a="finish">${P.opts.closable !== false ? 'Cerrar ✕' : 'Salir'}</button>` : `<button class="pl-btn pri${unreadNote() ? ' notedot' : ''}" data-a="next" ${unreadNote() ? 'title="Este paso tiene una nota que todavía no viste"' : ''}>${last ? 'Terminar' : 'Siguiente →'}</button>`}
+    </div>`;
+    if (noteHere() && has(P.enc.steps[i].nota)) P.seen.add(P.enc.steps[i].id);
+    P.root.innerHTML = `<div class="pl-top"></div><div class="pl-main">${body}</div>${nav}`;
+    renderTop();
+    updateMusic();
+  }
+  // salir al terminar: en la herramienta cierra el presentador; en el archivo exportado intenta cerrar la pestaña
+  function finish(){
+    if (P.opts.closable !== false) { close(); return; }
+    stopMusic();
+    try { window.close(); } catch(e){}
+    P.i = -2;      // si el navegador no deja cerrar la pestaña, queda una pantalla de despedida
+    P.root.innerHTML = `<div class="pl-main"><div class="pl-cover"><h1>Espacio terminado</h1><p class="csub">Ya podés cerrar esta pestaña.</p><br><button class="pl-btn" data-a="home">Volver al inicio del espacio</button></div></div>`;
+  }
+  // notas para el catequista: ¿el paso actual tiene una que todavía no se vio?
+  // la nota se abre por paso: abrirla en uno no la abre en los demás
+  function noteHere(){ const s = P.enc.steps[P.i]; return !!(s && P.notesOpen.has(s.id)); }
+  function unreadNote(){
+    const s = P.enc.steps[P.i];
+    return !!(s && has(s.nota) && P.opts.allowNotes !== false && !noteHere() && !P.seen.has(s.id));
+  }
+  // al querer pasar de paso sin haber visto la nota: un aviso (la segunda vez ya deja pasar)
+  function warnNote(){
+    if (!unreadNote()) return false;
+    const s = P.enc.steps[P.i];
+    if (P.warned === s.id) return false;
+    P.warned = s.id;
+    const nav = P.root.querySelector('.pl-nav'); if (!nav) return false;
+    nav.insertAdjacentHTML('beforeend', `<div class="pl-warn" role="alert">📝 <b>Este paso tiene una nota para vos</b> y todavía no la viste.<div class="acts"><button class="pl-btn" data-a="next">Seguir igual</button><button class="pl-btn pri" data-a="notes">Ver la nota</button></div></div>`);
+    return true;
+  }
+  // barras que se esconden solas: cualquier movimiento del mouse, toque o tecla las vuelve a mostrar
+  const IDLE_MS = 3000;
+  function poke(){
+    if (!P) return;
+    P.root.classList.remove('idle');
+    clearTimeout(P.idleT);
+    P.idleT = setTimeout(goIdle, IDLE_MS);
+  }
+  function goIdle(){
+    if (!P) return;
+    // no esconder si el mouse está sobre una barra, si hay un aviso abierto o si se está escribiendo
+    if (P.root.querySelector('.pl-top:hover, .pl-nav:hover, .pl-warn') || (document.activeElement && document.activeElement.closest('.pl textarea, .pl input'))) { P.idleT = setTimeout(goIdle, IDLE_MS); return; }
+    P.root.classList.add('idle');
+  }
+  // minutos de una lista de pasos: de los pasos que dependen de una opción elegida, cuenta solo el camino más largo
+  function pathMin(steps){
+    const conds = x => [x.gcond, x.cond].filter(c => c && c.step);
+    const go = list => {
+      let tot = 0; const by = new Map();
+      for (const it of list) {
+        if (!it.c.length) { tot += it.m; continue; }
+        const c = it.c[0]; if (!by.has(c.step)) by.set(c.step, new Map());
+        const vs = by.get(c.step); if (!vs.has(c.val)) vs.set(c.val, []);
+        vs.get(c.val).push({m:it.m, c:it.c.slice(1)});
+      }
+      for (const vs of by.values()) tot += Math.max(...[...vs.values()].map(go));
+      return tot;
+    };
+    return go(steps.filter(x => x.type !== 'grupo').map(x => ({m:+x.min || 0, c:conds(x)})));
+  }
+  // minutos para mostrar: lo que dura menos de un minuto, en segundos (exacto); lo demás, en minutos enteros
+  function fmtMin(m){ m = +m || 0; if (!m) return ''; return m < 1 ? Math.max(1, Math.round(m * 60)) + ' s' : Math.round(m) + ' min'; }
+  function coverHtml(){
+    const e = P.enc, N = n();
+    const mins = pathMin(e.steps);
+    const resume = P.prog.i > 0 && P.prog.i < N && !P.prog.done;
+    return `<div class="pl-cover">
+      <div class="eyebrow">Espacio</div>
+      <h1>${fmt(e.title || 'Espacio')}</h1>
+      ${has(e.sub) ? `<p class="csub">${fmt(e.sub)}</p>` : ''}
+      ${has(e.date) ? `<p class="csub" style="font-size:.85em">${esc(fmtDate(e.date))}</p>` : ''}
+      ${has(e.intro) ? `<div class="cgoal">${fmt(e.intro)}</div>` : ''}
+      <div class="cmeta">${N} paso${N !== 1 ? 's' : ''}${mins ? ' · unos ' + (mins < 1 ? Math.round(mins * 60) + ' segundos' : Math.round(mins) + ' minutos') : ''}</div>
+      ${N ? (resume ? `<button class="pl-btn pri" data-a="resume">Continuar (paso ${P.prog.i + 1})</button><br><button class="pl-btn" data-a="start">Empezar de nuevo</button>`
+                    : `<button class="pl-btn pri" data-a="start">${P.prog.done ? 'Volver a recorrerlo' : 'Comenzar'}</button>`)
+           : `<p class="pl-missing">Este espacio todavía no tiene pasos.</p>`}
+      ${hojaSteps(e).length >= 2 ? `<br><button class="pl-btn lite" data-a="hoja">📝 Solo las preguntas (para anotar o imprimir)</button>` : ''}
+      ${writes(e) ? privHtml() : ''}
+      ${P.opts.footer ?`<div style="margin-top:3em;font-size:.6em;color:var(--pl-muted)">${P.opts.footer}</div>` : ''}
+    </div>`;
+  }
+  const anyAnswer = () => Object.values(P.prog.answers || {}).some(v => Array.isArray(v) ? v.length : has(v));
+  function privHtml(){
+    return `<p class="cpriv">🔒 Lo que escribas o marques queda guardado <b>solo en este dispositivo</b>: no se envía a ningún lado y nadie más lo puede leer.` +
+      (anyAnswer() ? `<br><button class="pl-ib" data-a="wipe">🗑 Borrar lo que escribí</button>` : '') + `</p>`;
+  }
+  // hoja de preguntas: todas juntas, con lugar para anotar; se puede imprimir
+  function hojaHtml(){
+    const e = P.enc;
+    return `<div class="pl-step pl-hoja">
+      <div class="eyebrow">Hoja de preguntas</div>
+      <h1>${fmt(e.title || 'Espacio')}</h1>
+      <p class="hsub pl-noprint">Podés escribir acá, o imprimirla y llevarla en papel.</p>
+      <div class="pl-hacts pl-noprint"><button class="pl-btn" data-a="hojaback">← Volver</button><button class="pl-btn pri" data-a="print">🖨 Imprimir</button></div>
+      ${hojaSteps(e).filter(vis).map(s => `<div class="hq">${stepHtml(s, {answers:P.prog.answers, hoja:true})}</div>`).join('')}
+      <div class="pl-noprint">${privHtml()}<div class="pl-hacts"><button class="pl-btn" data-a="hojaback">← Volver</button></div></div>
+    </div>`;
+  }
+  function printHoja(){
+    // las cajas de texto se estiran para que en el papel se vea todo lo escrito (y quede lugar si están vacías)
+    P.root.querySelectorAll('.pl-hoja textarea').forEach(t => { t.style.height = 'auto'; t.style.height = Math.max(t.scrollHeight + 6, 120) + 'px'; });
+    window.print();
+  }
+  function closingHtml(){
+    const e = P.enc, c = e.closing || {};
+    const props = e.steps.filter(s => s.type === 'proposito' && has(P.prog.answers[s.id]));
+    let rec = '';
+    if (props.length) {
+      rec = `<div class="pl-recap"><h3>${props.length > 1 ? 'Te recordamos tus propósitos:' : 'Te recordamos tu propósito:'}</h3>` +
+        props.map(s => `<div class="rc">${props.length > 1 && has(s.title) ? `<small>${esc(s.title)}</small>` : ''}${esc(P.prog.answers[s.id])}</div>`).join('') + `</div>`;
+    }
+    return `<div class="pl-step pl-closing">
+      <p class="ct">${fmt(has(c.title) ? c.title : '¡Gracias por participar!')}</p>
+      ${has(c.sub) ? `<p class="cs">${fmt(c.sub)}</p>` : ''}
+      ${rec}
+    </div>`;
+  }
+  function onClick(ev){
+    const z = ev.target.closest('[data-zoom]');
+    if (z) { const l = document.createElement('div'); l.className = 'pl-light'; l.innerHTML = `<img src="${esc(z.src)}" alt="">`; l.onclick = () => l.remove(); P.root.appendChild(l); return; }
+    const sh = ev.target.closest('.bk-show');
+    if (sh) { const nx = sh.nextElementSibling; if (nx) nx.classList.remove('bk-hide'); sh.remove(); return; }
+    const op = ev.target.closest('[data-opt]');
+    if (op) {
+      const id = op.dataset.opt, k = id + ':o', v = op.dataset.v, st = P.enc.steps.find(s => s.id === id);
+      let sel = (P.prog.answers[k] || []).slice(); const j = sel.indexOf(v);
+      if (st && st.unica) sel = j < 0 ? [v] : []; else if (j < 0) sel.push(v); else sel.splice(j, 1);
+      P.prog.answers[k] = sel; saveProg();
+      P.root.querySelectorAll('[data-opt]').forEach(b => { if (b.dataset.opt === id) b.classList.toggle('on', sel.includes(b.dataset.v)); });
+      // elegir una opción puede cambiar qué pasos siguen (la cuenta de pasos, y en la hoja, qué preguntas se ven)
+      if (P.enc.steps.some(s => s.cond && s.cond.step === id)) { const m = P.root.querySelector('.pl-main'), y = m ? m.scrollTop : 0; render(); const m2 = P.root.querySelector('.pl-main'); if (m2) m2.scrollTop = y; }
+      return;
+    }
+    const b = ev.target.closest('[data-a]'); if (!b) return;
+    const a = b.dataset.a, pf = P.pf;
+    if (a === 'hoja') { P.hoja = true; render(); const m = P.root.querySelector('.pl-main'); if (m) m.scrollTop = 0; }
+    else if (a === 'hojaback') { P.hoja = false; render(); }
+    else if (a === 'print') printHoja();
+    else if (a === 'wipe') plConfirm('¿Borrar todo lo que escribiste y marcaste en este espacio? No se puede deshacer.', 'Borrar', () => { P.prog.answers = {}; saveProg(); render(); });
+    else if (a === 'next') { if (!warnNote()) go(stepFrom(P.i, 1)); }
+    else if (a === 'warnclose') { const w = P.root.querySelector('.pl-warn'); if (w) w.remove(); }
+    else if (a === 'prev') go(stepFrom(P.i, -1));
+    else if (a === 'start') { P.prog.done = false; go(0); }
+    else if (a === 'resume') go(P.prog.i);
+    else if (a === 'home') { stopMusic(); P.hoja = false; go(-1); }
+    else if (a === 'finish') finish();
+    else if (a === 'close') close();
+    else if (a === 'notes') { const s = P.enc.steps[P.i]; if (s) { if (P.notesOpen.has(s.id)) P.notesOpen.delete(s.id); else P.notesOpen.add(s.id); render(); } }
+    else if (a === 'dark') { pf.dark = !pf.dark; applyPrefs(pf); renderTop(); }
+    else if (a === 'zin' || a === 'zout') {
+      const k = innerWidth <= 640 ? 'sizeM' : 'size', d = a === 'zin' ? 2 : -2;
+      pf[k] = Math.max(13, Math.min(48, pf[k] + d)); applyPrefs(pf);
+    }
+    else if (a === 'fs') { if (document.fullscreenElement) document.exitFullscreen(); else P.root.requestFullscreen().catch(()=>{}); }
+    else if (a === 'mute') { P.prog.muted = !P.prog.muted; saveProg(); updateMusic(); renderTop(); }
+  }
+  let ansTimer;
+  function onInput(ev){
+    const t = ev.target.closest('[data-ans]'); if (!t) return;
+    P.prog.answers[t.dataset.ans] = t.value;
+    clearTimeout(ansTimer);
+    ansTimer = setTimeout(() => { saveProg(); const m = P && P.root.querySelector(`[data-saved="${CSS.escape(t.dataset.ans)}"]`); if (m) m.textContent = 'Guardado en este dispositivo ✓'; }, 400);
+  }
+  function onKey(ev){
+    if (!P) return;
+    if (ev.target.closest && ev.target.closest('textarea,input,select,[contenteditable]')) return;
+    const l = P.root.querySelector('.pl-light');
+    if (ev.key === 'Escape') { if (l) { l.remove(); return; } if (document.fullscreenElement) return; if (P.hoja) { P.hoja = false; render(); return; } if (P.opts.closable !== false) close(); return; }
+    if (P.hoja) return;
+    if (ev.key === 'ArrowRight' || ev.key === 'PageDown') { if (P.i >= 0 && P.i < n() && !warnNote()) go(stepFrom(P.i, 1)); ev.preventDefault(); }
+    else if (ev.key === 'ArrowLeft' || ev.key === 'PageUp') { if (P.i >= 0) go(stepFrom(P.i, -1)); ev.preventDefault(); }
+  }
+  // música de fondo: suena en loop desde que se empieza; se calla en los pasos de video o audio
+  function startMusic(){
+    const m = P.enc.music; if (!m || P.music) return;
+    const src = m.file && P.opts.src ? P.opts.src(m.file) : m.url;
+    if (!src) return;
+    P.musicSrc = src;
+    const a = new Audio(src); a.loop = true; a.volume = .35; P.music = a;
+  }
+  function updateMusic(){
+    if (!P || !P.music) return;
+    const s = P.enc.steps[P.i];
+    const quiet = P.prog.muted || P.i < 0 || P.i >= n() || (s && (s.type === 'video' || s.type === 'audio'));
+    if (quiet) P.music.pause(); else P.music.play().catch(()=>{});
+  }
+  function stopMusic(){ if (P && P.music) { P.music.pause(); P.music.src = ''; P.music = null; } }
+  function fmtDate(d){
+    const m = String(d).match(/^(\d{4})-(\d{2})-(\d{2})$/); if (!m) return d;
+    const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+    return `${+m[3]} de ${meses[+m[2] - 1]} de ${m[1]}`;
+  }
+  // confirmar con un cuadro con el estilo de la página (no el del navegador)
+  function plConfirm(msg, yes, ok){
+    if (!P) return;
+    const d = document.createElement('div'); d.className = 'pl-cf';
+    d.innerHTML = `<div class="box" role="alertdialog" aria-modal="true"><p>${esc(msg)}</p><div class="acts"><button class="pl-btn" data-cf="no">Cancelar</button><button class="pl-btn pri" data-cf="si">${esc(yes)}</button></div></div>`;
+    const fin = v => { d.remove(); document.removeEventListener('keydown', key, true); if (v) ok(); };
+    const key = ev => { if (ev.key === 'Escape') { ev.stopPropagation(); ev.preventDefault(); fin(false); } };
+    d.addEventListener('click', ev => { ev.stopPropagation(); const b = ev.target.closest('[data-cf]'); if (b) fin(b.dataset.cf === 'si'); else if (ev.target === d) fin(false); });
+    document.addEventListener('keydown', key, true);
+    P.root.appendChild(d); d.querySelector('[data-cf="no"]').focus();
+  }
+  // globitos de ayuda: el texto de «title» se muestra con el estilo de la página (una sola vez por documento)
+  (function tips(){
+    if (window.__fqTips) return; window.__fqTips = true;
+    const tip = document.createElement('div'); tip.id = 'fq-tip'; tip.setAttribute('role', 'tooltip');
+    const pop = typeof tip.showPopover === 'function';           // como «popover» queda encima de los cuadros de diálogo
+    if (pop) tip.setAttribute('popover', 'manual'); else tip.hidden = true;
+    const put = () => { if (!tip.isConnected) document.body.appendChild(tip); };
+    let cur = null, timer = null;
+    const hide = () => { clearTimeout(timer); timer = null; cur = null; tip.classList.remove('on'); if (pop) { try { tip.hidePopover(); } catch(e){} } else tip.hidden = true; };
+    const show = el => {
+      const t = el.dataset.tip; if (!t || !el.isConnected) return;
+      put(); tip.textContent = t;
+      if (pop) { try { tip.hidePopover(); } catch(e){} tip.showPopover(); } else tip.hidden = false;
+      const r = el.getBoundingClientRect(), w = tip.offsetWidth, h = tip.offsetHeight;
+      let x = Math.max(8, Math.min(innerWidth - w - 8, r.left + r.width / 2 - w / 2)), y = r.bottom + 8;
+      if (y + h > innerHeight - 8) y = Math.max(8, r.top - h - 8);
+      tip.style.left = x + 'px'; tip.style.top = y + 'px';
+      requestAnimationFrame(() => tip.classList.add('on'));
+    };
+    document.addEventListener('pointerover', ev => {
+      if (ev.pointerType === 'touch') return;
+      const el = ev.target.closest && ev.target.closest('[title],[data-tip]');
+      if (!el) { if (cur) hide(); return; }
+      if (el.hasAttribute('title')) {             // se pasa a data-tip para que no salga además el del navegador
+        const t = el.getAttribute('title').trim();
+        if (t) { el.dataset.tip = t; if (!el.getAttribute('aria-label') && !el.textContent.trim()) el.setAttribute('aria-label', t); }
+        el.removeAttribute('title');
+      }
+      if (el === cur) return;
+      hide(); if (!el.dataset.tip) return;
+      cur = el; timer = setTimeout(() => { if (cur === el) show(el); }, 380);
+    }, true);
+    document.addEventListener('pointerout', ev => { if (cur && !(ev.relatedTarget && cur.contains(ev.relatedTarget))) hide(); }, true);
+    for (const t of ['pointerdown', 'keydown', 'wheel']) document.addEventListener(t, hide, true);
+    addEventListener('scroll', hide, true); addEventListener('blur', hide);
+  })();
+  window.EncPlayer = {QICONS, open, close, stepHtml, fmt, esc, fmtDate, pathMin, fmtMin, isOpen: () => !!P};
+})();
+</script>
+<script>
+(function(){
+  var D = JSON.parse(document.getElementById('enc-data').textContent), cache = {};
+  function src(f){
+    if (!f || !f.fid) return '';
+    if (cache[f.fid]) return cache[f.fid];
+    // el archivo está en un <script> propio, o adentro de la versión de lectura (src/href con data:)
+    var el = document.getElementById('enc-' + f.fid), b64, mime;
+    if (el) { b64 = el.textContent.trim(); mime = el.dataset.mime; }
+    else {
+      el = document.querySelector('#nojs [data-fid="' + f.fid + '"]'); if (!el) return '';
+      var v = el.getAttribute(el.dataset.at || 'src') || '', k = v.indexOf(',');
+      mime = v.slice(5, v.indexOf(';')); b64 = v.slice(k + 1);
+    }
+    var bin = atob(b64), u8 = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+    return cache[f.fid] = URL.createObjectURL(new Blob([u8], {type: mime || f.mime || ''}));
+  }
+  var foot = (D.attr || []).map(function(a){ return EncPlayer.esc(a); }).join('<br>');
+  // publicado en internet: lo escrito se conserva aunque se actualice la página; archivo suelto: cada versión empieza de cero
+  EncPlayer.open(D.enc, {src: src, embedded: true, closable: false, notes: false, storageKey: 'encuentro-' + D.enc.id + (D.pub ? '' : '-' + D.exportedAt), footer: foot});
+})();
+</script>
+</body></html>
